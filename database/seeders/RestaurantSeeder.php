@@ -14,207 +14,171 @@ class RestaurantSeeder extends Seeder
     public function run(): void
     {
         // 開発環境用のダミーデータをここに記述
-        Restaurant::create([
-            'name' => '牛角 四条河原町店',
-            'description' => '定番から希少部位まで楽しめる、みんな大好き牛角！',
-            'address' => '京都府京都市下京区四条通河原町東入真町',
-            'telephone' => '075-212-3456',
-            'operating_hours' => '月～金: 17:00～23:00, 土日祝: 12:00～23:00',
-            'image_url' => 'https://example.com/gyukaku.jpg', // ダミー画像URL
-        ]);
+        $restaurants = [
+            [
+                'name' => '炭火焼肉 炎庵（ほのおあん）',
+                'description' => '厳選された和牛を炭火でじっくりと。落ち着いた空間で大人の焼肉体験を。',
+                'address' => '京都府京都市中京区河原町通三条上る',
+                'telephone' => '075-123-4567',
+                'operating_hours' => '月～金: 17:00～23:00, 土日祝: 12:00～23:00',
+                'image_url' => 'https://example.com/honooan.jpg',
+            ],
+            [
+                'name' => '七輪亭 牛炎（ぎゅうえん）',
+                'description' => '気軽に立ち寄れる大衆焼肉店。新鮮なホルモンと特製タレが自慢。',
+                'address' => '京都府京都市下京区烏丸通七条下る',
+                'telephone' => '075-987-6543',
+                'operating_hours' => '全日: 17:00～24:00',
+                'image_url' => 'https://example.com/gyuen.jpg',
+            ],
+            [
+                'name' => '京焼肉 粋月（すいげつ）',
+                'description' => '京都の風情を感じる町家で、こだわり抜いた京の和牛を堪能。',
+                'address' => '京都府京都市東山区祇園町南側',
+                'telephone' => '075-234-5678',
+                'operating_hours' => '火～日: 18:00～23:00 (月曜定休)',
+                'image_url' => 'https://example.com/suigetsu.jpg',
+            ],
+            [
+                'name' => '焼肉 和（なごみ） 烏丸御池',
+                'description' => '家族や友人とゆったり過ごせる、アットホームな雰囲気の焼肉店。',
+                'address' => '京都府京都市中京区両替町通御池下る',
+                'telephone' => '075-345-6789',
+                'operating_hours' => '全日: 17:30～23:30',
+                'image_url' => 'https://example.com/nagomi.jpg',
+            ],
+            [
+                'name' => '肉匠 大志（たいし）',
+                'description' => '職人の技が光る希少部位の数々。肉好きにはたまらないラインナップ。',
+                'address' => '京都府京都市伏見区桃山町山ノ下',
+                'telephone' => '075-876-5432',
+                'operating_hours' => '月～金: 17:00～22:00, 土日祝: 12:00～22:00',
+                'image_url' => 'https://example.com/taishi.jpg',
+            ],
+            [
+                'name' => '焼肉酒場 煙々（えんえん）',
+                'description' => '煙もくもく、活気あふれる空間で、美味しい焼肉と美酒を。',
+                'address' => '京都府京都市左京区田中里ノ内町',
+                'telephone' => '075-456-7890',
+                'operating_hours' => '全日: 18:00～翌1:00',
+                'image_url' => 'https://example.com/enen.jpg',
+            ],
+            [
+                'name' => 'ホルモン酒場 満腹',
+                'description' => '種類豊富な新鮮ホルモンが自慢。特製ダレでご飯が進む！',
+                'address' => '京都府京都市南区東九条西山町',
+                'telephone' => '075-567-8901',
+                'operating_hours' => '全日: 16:00～23:00',
+                'image_url' => 'https://example.com/manpuku.jpg',
+            ],
+            [
+                'name' => 'プレミアム焼肉 雅（みやび）',
+                'description' => '特別な日を彩る、上質な空間と最高級の和牛を。',
+                'address' => '京都府京都市中京区木屋町通三条下る',
+                'telephone' => '075-678-9012',
+                'operating_hours' => '全日: 17:00～23:00',
+                'image_url' => 'https://example.com/miyabi.jpg',
+            ],
+            [
+                'name' => '焼肉亭 大黒（だいこく）',
+                'description' => '創業50年の老舗。秘伝のタレと変わらぬ味が人気の理由。',
+                'address' => '京都府京都市北区紫野泉堂町',
+                'telephone' => '075-789-0123',
+                'operating_hours' => '火～日: 17:00～22:00 (月曜定休)',
+                'image_url' => 'https://example.com/daikoku.jpg',
+            ],
+            [
+                'name' => '焼肉ダイニング 翠（すい）',
+                'description' => '選び抜かれた銘柄牛とワインのマリアージュ。洗練された大人の空間。',
+                'address' => '京都府京都市上京区今出川通室町西入',
+                'telephone' => '075-890-1234',
+                'operating_hours' => '全日: 17:30～23:00',
+                'image_url' => 'https://example.com/sui.jpg',
+            ],
+            [
+                'name' => '炙り家 源（げん）',
+                'description' => 'A5ランク和牛の炙り寿司は必食。炭火で炙る逸品揃い。',
+                'address' => '京都府京都市下京区四条通高倉西入',
+                'telephone' => '075-012-3456',
+                'operating_hours' => '全日: 17:00～24:00',
+                'image_url' => 'https://example.com/gen.jpg',
+            ],
+            [
+                'name' => '焼肉物語 炎の舞',
+                'description' => '炎が舞い上がるパフォーマンスも楽しい！エンターテイメント性あふれる焼肉店。',
+                'address' => '京都府京都市中京区河原町通蛸薬師下る',
+                'telephone' => '075-135-7924',
+                'operating_hours' => '月～金: 17:00～23:00, 土日祝: 12:00～23:00',
+                'image_url' => 'https://example.com/honoh-no-mai.jpg',
+            ],
+            [
+                'name' => '黒毛和牛専門 匠（たくみ）',
+                'description' => '目利きが選んだ最高級の黒毛和牛のみを使用。とろける旨みを堪能。',
+                'address' => '京都府京都市東山区縄手通四条上る',
+                'telephone' => '075-246-8013',
+                'operating_hours' => '全日: 17:00～23:00',
+                'image_url' => 'https://example.com/takumi.jpg',
+            ],
+            [
+                'name' => 'ホルモン処 よろこび',
+                'description' => 'レトロな雰囲気で賑わうホルモン専門店。希少部位も豊富。',
+                'address' => '京都府京都市西京区桂御所町',
+                'telephone' => '075-369-1245',
+                'operating_hours' => '全日: 18:00～24:00',
+                'image_url' => 'https://example.com/yorokobi.jpg',
+            ],
+            [
+                'name' => '焼肉と釜飯 香炉（こうろ）',
+                'description' => '焼肉の後に〆は釜飯で。こだわりの逸品料理も楽しめる。',
+                'address' => '京都府京都市中京区新町通錦小路上る',
+                'telephone' => '075-470-3698',
+                'operating_hours' => '火～日: 17:00～23:00 (月曜定休)',
+                'image_url' => 'https://example.com/koro.jpg',
+            ],
+            [
+                'name' => '炭火亭 幸楽苑（こうらくえん）',
+                'description' => '昔ながらの炭火焼肉店。家族みんなで楽しめるリーズナブルな価格設定。',
+                'address' => '京都府京都市伏見区深草西浦町',
+                'telephone' => '075-581-7420',
+                'operating_hours' => '全日: 16:30～22:30',
+                'image_url' => 'https://example.com/korakuen.jpg',
+            ],
+            [
+                'name' => 'ホルモンキッチン 喰堂（くうどう）',
+                'description' => 'カジュアルな雰囲気で、新鮮なホルモンを思う存分味わえる。',
+                'address' => '京都府京都市左京区一乗寺払殿町',
+                'telephone' => '075-722-1987',
+                'operating_hours' => '全日: 17:00～翌0:00',
+                'image_url' => 'https://example.com/kudo.jpg',
+            ],
+            [
+                'name' => '和牛苑 慶（けい）',
+                'description' => '選び抜かれた和牛の美味しさを最大限に引き出す。特別な接待にも。',
+                'address' => '京都府京都市下京区河原町通仏光寺下る',
+                'telephone' => '075-351-8642',
+                'operating_hours' => '全日: 17:00～23:00',
+                'image_url' => 'https://example.com/kei.jpg',
+            ],
+            [
+                'name' => '大衆焼肉 どんぐり',
+                'description' => '学生からサラリーマンまで、みんなでワイワイ楽しめる活気ある焼肉店。',
+                'address' => '京都府京都市北区上賀茂桜井町',
+                'telephone' => '075-781-9876',
+                'operating_hours' => '全日: 16:00～23:00',
+                'image_url' => 'https://example.com/donguri.jpg',
+            ],
+            [
+                'name' => '焼肉処 山里（やまざと）',
+                'description' => '静かで落ち着いた空間で、こだわりの焼肉と地酒を。',
+                'address' => '京都府京都市右京区嵯峨天龍寺芒ノ馬場町',
+                'telephone' => '075-861-2345',
+                'operating_hours' => '全日: 17:00～22:00',
+                'image_url' => 'https://example.com/yamazato.jpg',
+            ],
+        ];
 
-        Restaurant::create([
-            'name' => '焼肉きんぐ 京都駅前店',
-            'description' => '食べ放題が人気の焼肉チェーン。家族連れにおすすめ。',
-            'address' => '京都府京都市下京区東塩小路町721-1',
-            'telephone' => '075-343-9876',
-            'operating_hours' => '全日: 11:30～24:00',
-            'image_url' => 'https://example.com/yakiniku-king.jpg',
-        ]);
-
-        // --- ここからリアル店舗に近い焼肉屋さんのデータ例 ---
-
-        // 京都の有名店「京の焼肉処 弘」シリーズ
-        Restaurant::create([
-            'name' => '京の焼肉処 弘 千本三条本店',
-            'description' => '京都の精肉店が直営する、新鮮な京丹波牛が自慢の焼肉店。コスパも抜群。',
-            'address' => '京都府京都市中京区壬生馬場町37-2',
-            'telephone' => '075-812-8929',
-            'operating_hours' => '全日: 17:00～23:00',
-            'image_url' => 'https://example.com/yakiniku-hiro-senbon.jpg',
-        ]);
-
-        Restaurant::create([
-            'name' => '京の焼肉処 弘 京都駅前店',
-            'description' => '京都駅から徒歩圏内。観光客にも人気の弘の支店で、上質な和牛を堪能。',
-            'address' => '京都府京都市下京区東塩小路町721-1 京都タワーサンドB1F',
-            'telephone' => '075-343-4129',
-            'operating_hours' => '全日: 11:00～23:00',
-            'image_url' => 'https://example.com/yakiniku-hiro-kyotoeki.jpg',
-        ]);
-
-        Restaurant::create([
-            'name' => '京の焼肉処 弘 先斗町',
-            'description' => '風情ある先斗町で京町家を改装した店舗。デートや特別な日に最適。',
-            'address' => '京都府京都市中京区先斗町四条上る西側',
-            'telephone' => '075-255-8929',
-            'operating_hours' => '月～金: 17:00～23:00, 土日祝: 12:00～23:00',
-            'image_url' => 'https://example.com/yakiniku-hiro-pontocho.jpg',
-        ]);
-
-        // 天壇（祇園本店は特に有名）
-        Restaurant::create([
-            'name' => '焼肉の名門 天壇 祇園本店',
-            'description' => '京都を代表する老舗焼肉店。黄金色のだしでいただく焼肉は絶品。',
-            'address' => '京都府京都市東山区宮川筋4-297',
-            'telephone' => '075-551-4129',
-            'operating_hours' => '全日: 11:30～23:00',
-            'image_url' => 'https://example.com/tendan-gion.jpg',
-        ]);
-
-        // 甲（キノエ）
-        Restaurant::create([
-            'name' => '焼肉ダイニング 甲（キノエ） 御所南',
-            'description' => '最高級和牛と17種類のユッケが楽しめる。上品な空間で大人な焼肉体験。',
-            'address' => '京都府京都市中京区等持寺町34-1 ペペ御所南1F',
-            'telephone' => '075-257-2929',
-            'operating_hours' => '全日: 17:00～23:00',
-            'image_url' => 'https://example.com/kinoe-gosho.jpg',
-        ]);
-
-        // 焼肉矢澤 京都
-        Restaurant::create([
-            'name' => '焼肉矢澤 京都',
-            'description' => '東京の人気店が京都に進出。上質な空間で質にとことんこだわった和牛焼肉を堪能。',
-            'address' => '京都府京都市下京区新町通綾小路下る神明町243 Masa Ayakojiビル1F',
-            'telephone' => '075-353-2989',
-            'operating_hours' => '月～金: 17:00～23:00, 土日祝: 12:00～23:00',
-            'image_url' => 'https://example.com/yazawa-kyoto.jpg',
-        ]);
-
-        // 焼肉やまちゃん
-        Restaurant::create([
-            'name' => '焼肉やまちゃん',
-            'description' => '渋谷で話題の焼肉店が京都に。厳選された和牛と新鮮なホルモンが魅力。',
-            'address' => '京都府京都市中京区蛸屋町蛸薬師通麩屋町東入ル157-11',
-            'telephone' => '075-212-0029',
-            'operating_hours' => '全日: 18:00～24:00',
-            'image_url' => 'https://example.com/yamachan.jpg',
-        ]);
-
-        // 松阪牛 WHAT'S 京都室町店
-        Restaurant::create([
-            'name' => '松阪牛WHAT\'S 京都室町店',
-            'description' => '松阪牛一頭買いで希少部位も豊富。築80年の京町家で贅沢な焼肉を。',
-            'address' => '京都府京都市中京区室町通蛸薬師下る鯉山町531',
-            'telephone' => '075-257-2929',
-            'operating_hours' => '全日: 17:00～23:00',
-            'image_url' => 'https://example.com/matsusaka-whats.jpg',
-        ]);
-
-        // 熟成焼肉 听（ポンド） 京都駅前店
-        Restaurant::create([
-            'name' => '熟成焼肉 听（ポンド） 京都駅前店',
-            'description' => '熟成肉専門店。独自の熟成技術で旨みを最大限に引き出したお肉を提供。',
-            'address' => '京都府京都市下京区東塩小路町717-30',
-            'telephone' => '075-353-8929',
-            'operating_hours' => '全日: 17:00～23:00',
-            'image_url' => 'https://example.com/pound-kyotoeki.jpg',
-        ]);
-
-        // 個室焼肉 萬（まん）
-        Restaurant::create([
-            'name' => '個室焼肉 萬',
-            'description' => '全室個室でプライベートな空間で焼肉を楽しめる。会食や接待にもおすすめ。',
-            'address' => '京都府京都市中京区河原町通蛸薬師下る塩屋町343-2',
-            'telephone' => '075-252-8929',
-            'operating_hours' => '全日: 17:00～23:00',
-            'image_url' => 'https://example.com/yakiniku-man.jpg',
-        ]);
-
-        // 焼肉 侘び寂び（以前のダミーを京都のお店に修正）
-        Restaurant::create([
-            'name' => '焼肉 侘び寂び 京都祇園',
-            'description' => '祇園の隠れ家で、日本の美意識を感じる空間で上質な和牛をじっくりと。',
-            'address' => '京都府京都市東山区祇園町南側570-120',
-            'telephone' => '075-XXXX-YYYY', // ダミー電話番号
-            'operating_hours' => '月～土: 18:00～24:00 (日祝定休)',
-            'image_url' => 'https://example.com/wabisabi-gion.jpg',
-        ]);
-
-        // 地域チェーン店など
-        Restaurant::create([
-            'name' => 'ワンカルビ 京都桂店',
-            'description' => '高品質な食べ放題が人気の焼肉レストラン。家族連れにも大人気。',
-            'address' => '京都府京都市西京区桂南巽町90',
-            'telephone' => '075-394-1129',
-            'operating_hours' => '全日: 17:00～24:00',
-            'image_url' => 'https://example.com/onekarubi.jpg',
-        ]);
-
-        Restaurant::create([
-            'name' => '焼肉酒家 伝八 京都三条店',
-            'description' => 'リーズナブルな価格で焼肉とホルモンを楽しめる大衆居酒屋。',
-            'address' => '京都府京都市中京区三条通河原町東入ル',
-            'telephone' => '075-221-8929',
-            'operating_hours' => '全日: 17:00～翌1:00',
-            'image_url' => 'https://example.com/denhachi.jpg',
-        ]);
-
-        Restaurant::create([
-            'name' => '焼肉 李朝園 京都河原町店',
-            'description' => '本格的な韓国料理も楽しめる焼肉店。サムギョプサルも人気。',
-            'address' => '京都府京都市中京区河原町通蛸薬師下る塩屋町333',
-            'telephone' => '075-253-8929',
-            'operating_hours' => '全日: 11:30～23:00',
-            'image_url' => 'https://example.com/richoen.jpg',
-        ]);
-
-        // あと5件！
-        Restaurant::create([
-            'name' => '焼肉 ぎおん竹',
-            'description' => '祇園の隠れ家的な焼肉店。選び抜かれた銘柄牛を贅沢に。',
-            'address' => '京都府京都市東山区祇園町北側292',
-            'telephone' => '075-555-2929',
-            'operating_hours' => '火～日: 17:00～23:00 (月曜定休)',
-            'image_url' => 'https://example.com/gion-take.jpg',
-        ]);
-
-        Restaurant::create([
-            'name' => 'ホルモン 千本今出川',
-            'description' => '地元の人に愛されるホルモンの名店。新鮮なホルモンを炭火で焼く。',
-            'address' => '京都府京都市上京区千本今出川下る西側',
-            'telephone' => '075-463-2929',
-            'operating_hours' => '全日: 17:00～23:00',
-            'image_url' => 'https://example.com/horumon-senbon.jpg',
-        ]);
-
-        Restaurant::create([
-            'name' => '和牛焼肉と創作料理 萬樹',
-            'description' => '和牛の焼肉と、季節の食材を使った創作料理が楽しめる。',
-            'address' => '京都府京都市中京区三条通河原町西入ル',
-            'telephone' => '075-257-2989',
-            'operating_hours' => '月～金: 17:00～23:00, 土日祝: 12:00～23:00',
-            'image_url' => 'https://example.com/mansyu.jpg',
-        ]);
-
-        Restaurant::create([
-            'name' => '焼肉 大栄 三条店',
-            'description' => '昔ながらの雰囲気が魅力の焼肉店。家族経営でアットホームな雰囲気。',
-            'address' => '京都府京都市東山区三条通白川橋東入ル',
-            'telephone' => '075-771-8929',
-            'operating_hours' => '全日: 17:00～22:00 (火曜定休)',
-            'image_url' => 'https://example.com/daiei-sanjo.jpg',
-        ]);
-
-        Restaurant::create([
-            'name' => '炭火焼肉 えん 京都駅前',
-            'description' => '京都駅近くでアクセス抜群。カジュアルな雰囲気で炭火焼肉を楽しめる。',
-            'address' => '京都府京都市下京区烏丸通七条下る東塩小路町719',
-            'telephone' => '075-365-2929',
-            'operating_hours' => '全日: 17:00～23:00',
-            'image_url' => 'https://example.com/en-kyotoeki.jpg',
-        ]);
-
+        foreach ($restaurants as $restaurantData) {
+            Restaurant::create($restaurantData);
+        }
     }
 }
