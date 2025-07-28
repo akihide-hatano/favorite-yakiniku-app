@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
+         User::factory(8)->create();
+
         //作成した他のSeederを呼び出す
         $this->call([
             RestaurantSeeder::class, // RestaurantSeederを実行
