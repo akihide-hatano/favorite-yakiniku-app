@@ -19,5 +19,10 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        //作成した他のSeederを呼び出す
+        $this->call([
+            RestaurantSeeder::class, // RestaurantSeederを実行
+        ]);
     }
 }
