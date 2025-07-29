@@ -83,6 +83,13 @@ class RestaurantController extends Controller
             'image' => 'nullable|image|max:2048', // 画像ファイルはオプション、最大2MB
         ]);
 
+        //画像に関する設定
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public/restaurants'); // 例: "public/restaurants/xxxx.png"
+            $imagePath = str_replace('public/', 'storage/', $imagePath); // 例: "storage/restaurants/xxxx.png"
+        }
+
         // データベースへの保存
         Restaurant::create([
             'name' => $request->name,
