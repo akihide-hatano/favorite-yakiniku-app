@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\DB;
 
+use function Ramsey\Uuid\v1;
+
 class RestaurantController extends Controller
 {
 
@@ -64,5 +66,36 @@ class RestaurantController extends Controller
     {
         $restaurant->load('reviews.user');
         return view('restaurants.show', compact('restaurant'));
+    }
+
+    public function create(){
+        return view('restaurants.create');
+    }
+
+    public function store(Request $request){
+        //バリーデーション
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'address' => 'required|string|max:255',
+            'telephone' => 'required|string|max:20',
+            'operating_hours' => 'required|string|max:255',
+            'image' => 'nullable|image|max:2048', // 画像ファイルはオプション、最大2MB
+        ]);
+
+        // データベースへの保存
+        Restaurant::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'address' => $request->address,
+            'telephone' => $request->telephone,
+            'operating_hours' => $request->operating_hours,
+            'image_url' => $imagePath, // アップロードした画像のパスを設定
+            // 他の必要なフィールドも設定
+        ]);
+
+        //保存後のリダイレクト
+        return redirect()->route('restaurants.index')
+                        ->with('success','焼肉店情報が正常に登録されました！');
     }
 }
