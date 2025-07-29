@@ -21,7 +21,7 @@ class RestaurantSeeder extends Seeder
                 'address' => '京都府京都市中京区河原町通三条上る',
                 'telephone' => '075-123-4567',
                 'operating_hours' => '月～金: 17:00～23:00, 土日祝: 12:00～23:00',
-                'image_url' => 'https://example.com/honooan.jpg',
+                'image_url' => 'images/photo-1.png',
             ],
             [
                 'name' => '七輪亭 牛炎（ぎゅうえん）',
@@ -29,7 +29,7 @@ class RestaurantSeeder extends Seeder
                 'address' => '京都府京都市下京区烏丸通七条下る',
                 'telephone' => '075-987-6543',
                 'operating_hours' => '全日: 17:00～24:00',
-                'image_url' => 'https://example.com/gyuen.jpg',
+                'image_url' => 'images/photo-2.png',
             ],
             [
                 'name' => '京焼肉 粋月（すいげつ）',
@@ -37,7 +37,7 @@ class RestaurantSeeder extends Seeder
                 'address' => '京都府京都市東山区祇園町南側',
                 'telephone' => '075-234-5678',
                 'operating_hours' => '火～日: 18:00～23:00 (月曜定休)',
-                'image_url' => 'https://example.com/suigetsu.jpg',
+                'image_url' => 'images/photo-3.png',
             ],
             [
                 'name' => '焼肉 和（なごみ） 烏丸御池',
@@ -45,7 +45,7 @@ class RestaurantSeeder extends Seeder
                 'address' => '京都府京都市中京区両替町通御池下る',
                 'telephone' => '075-345-6789',
                 'operating_hours' => '全日: 17:30～23:30',
-                'image_url' => 'https://example.com/nagomi.jpg',
+                'image_url' => 'images/photo-4.png',
             ],
             [
                 'name' => '肉匠 大志（たいし）',
@@ -53,7 +53,7 @@ class RestaurantSeeder extends Seeder
                 'address' => '京都府京都市伏見区桃山町山ノ下',
                 'telephone' => '075-876-5432',
                 'operating_hours' => '月～金: 17:00～22:00, 土日祝: 12:00～22:00',
-                'image_url' => 'https://example.com/taishi.jpg',
+                'image_url' => 'images/photo-5.png',
             ],
             [
                 'name' => '焼肉酒場 煙々（えんえん）',
@@ -61,7 +61,7 @@ class RestaurantSeeder extends Seeder
                 'address' => '京都府京都市左京区田中里ノ内町',
                 'telephone' => '075-456-7890',
                 'operating_hours' => '全日: 18:00～翌1:00',
-                'image_url' => 'https://example.com/enen.jpg',
+                'image_url' => 'images/photo-6.png',
             ],
             [
                 'name' => 'ホルモン酒場 満腹',
@@ -69,7 +69,7 @@ class RestaurantSeeder extends Seeder
                 'address' => '京都府京都市南区東九条西山町',
                 'telephone' => '075-567-8901',
                 'operating_hours' => '全日: 16:00～23:00',
-                'image_url' => 'https://example.com/manpuku.jpg',
+                'image_url' => 'images/photo-7.png',
             ],
             [
                 'name' => 'プレミアム焼肉 雅（みやび）',
@@ -77,7 +77,7 @@ class RestaurantSeeder extends Seeder
                 'address' => '京都府京都市中京区木屋町通三条下る',
                 'telephone' => '075-678-9012',
                 'operating_hours' => '全日: 17:00～23:00',
-                'image_url' => 'https://example.com/miyabi.jpg',
+                'image_url' => 'images/photo-8.png',
             ],
             [
                 'name' => '焼肉亭 大黒（だいこく）',
@@ -85,7 +85,7 @@ class RestaurantSeeder extends Seeder
                 'address' => '京都府京都市北区紫野泉堂町',
                 'telephone' => '075-789-0123',
                 'operating_hours' => '火～日: 17:00～22:00 (月曜定休)',
-                'image_url' => 'https://example.com/daikoku.jpg',
+                'image_url' => 'images/photo-9.png',
             ],
             [
                 'name' => '焼肉ダイニング 翠（すい）',
@@ -93,7 +93,7 @@ class RestaurantSeeder extends Seeder
                 'address' => '京都府京都市上京区今出川通室町西入',
                 'telephone' => '075-890-1234',
                 'operating_hours' => '全日: 17:30～23:00',
-                'image_url' => 'https://example.com/sui.jpg',
+                'image_url' => 'images/photo-10.png',
             ],
             [
                 'name' => '炙り家 源（げん）',
@@ -101,7 +101,7 @@ class RestaurantSeeder extends Seeder
                 'address' => '京都府京都市下京区四条通高倉西入',
                 'telephone' => '075-012-3456',
                 'operating_hours' => '全日: 17:00～24:00',
-                'image_url' => 'https://example.com/gen.jpg',
+                'image_url' => 'images/photo-11.png',
             ],
             [
                 'name' => '焼肉物語 炎の舞',
@@ -109,7 +109,7 @@ class RestaurantSeeder extends Seeder
                 'address' => '京都府京都市中京区河原町通蛸薬師下る',
                 'telephone' => '075-135-7924',
                 'operating_hours' => '月～金: 17:00～23:00, 土日祝: 12:00～23:00',
-                'image_url' => 'https://example.com/honoh-no-mai.jpg',
+                'image_url' => 'images/photo-12.png',
             ],
             [
                 'name' => '黒毛和牛専門 匠（たくみ）',
@@ -117,7 +117,7 @@ class RestaurantSeeder extends Seeder
                 'address' => '京都府京都市東山区縄手通四条上る',
                 'telephone' => '075-246-8013',
                 'operating_hours' => '全日: 17:00～23:00',
-                'image_url' => 'https://example.com/takumi.jpg',
+                'image_url' => 'images/photo-13.png',
             ],
             [
                 'name' => 'ホルモン処 よろこび',
@@ -125,7 +125,7 @@ class RestaurantSeeder extends Seeder
                 'address' => '京都府京都市西京区桂御所町',
                 'telephone' => '075-369-1245',
                 'operating_hours' => '全日: 18:00～24:00',
-                'image_url' => 'https://example.com/yorokobi.jpg',
+                'image_url' => 'images/photo-14.png',
             ],
             [
                 'name' => '焼肉と釜飯 香炉（こうろ）',
@@ -133,47 +133,7 @@ class RestaurantSeeder extends Seeder
                 'address' => '京都府京都市中京区新町通錦小路上る',
                 'telephone' => '075-470-3698',
                 'operating_hours' => '火～日: 17:00～23:00 (月曜定休)',
-                'image_url' => 'https://example.com/koro.jpg',
-            ],
-            [
-                'name' => '炭火亭 幸楽苑（こうらくえん）',
-                'description' => '昔ながらの炭火焼肉店。家族みんなで楽しめるリーズナブルな価格設定。',
-                'address' => '京都府京都市伏見区深草西浦町',
-                'telephone' => '075-581-7420',
-                'operating_hours' => '全日: 16:30～22:30',
-                'image_url' => 'https://example.com/korakuen.jpg',
-            ],
-            [
-                'name' => 'ホルモンキッチン 喰堂（くうどう）',
-                'description' => 'カジュアルな雰囲気で、新鮮なホルモンを思う存分味わえる。',
-                'address' => '京都府京都市左京区一乗寺払殿町',
-                'telephone' => '075-722-1987',
-                'operating_hours' => '全日: 17:00～翌0:00',
-                'image_url' => 'https://example.com/kudo.jpg',
-            ],
-            [
-                'name' => '和牛苑 慶（けい）',
-                'description' => '選び抜かれた和牛の美味しさを最大限に引き出す。特別な接待にも。',
-                'address' => '京都府京都市下京区河原町通仏光寺下る',
-                'telephone' => '075-351-8642',
-                'operating_hours' => '全日: 17:00～23:00',
-                'image_url' => 'https://example.com/kei.jpg',
-            ],
-            [
-                'name' => '大衆焼肉 どんぐり',
-                'description' => '学生からサラリーマンまで、みんなでワイワイ楽しめる活気ある焼肉店。',
-                'address' => '京都府京都市北区上賀茂桜井町',
-                'telephone' => '075-781-9876',
-                'operating_hours' => '全日: 16:00～23:00',
-                'image_url' => 'https://example.com/donguri.jpg',
-            ],
-            [
-                'name' => '焼肉処 山里（やまざと）',
-                'description' => '静かで落ち着いた空間で、こだわりの焼肉と地酒を。',
-                'address' => '京都府京都市右京区嵯峨天龍寺芒ノ馬場町',
-                'telephone' => '075-861-2345',
-                'operating_hours' => '全日: 17:00～22:00',
-                'image_url' => 'https://example.com/yamazato.jpg',
+                'image_url' => 'images/photo-15.png',
             ],
         ];
 
