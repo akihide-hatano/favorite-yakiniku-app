@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\DB;
 
-use function Ramsey\Uuid\v1;
-
 class RestaurantController extends Controller
 {
 
@@ -38,6 +36,12 @@ class RestaurantController extends Controller
             }
         }
 
+        // --- 場所での絞り込み機能 ---
+        if ($request->filled('location')) {
+            $location = $request->input('location');
+            $query->where('address', 'like', '%' . $location . '%');
+        }
+
         // --- 並び替え機能 ---
         if ($request->has('sort') && $request->sort === 'reviews_count') {
             $query->withCount('reviews')->orderByDesc('reviews_count');
@@ -49,6 +53,8 @@ class RestaurantController extends Controller
 
         //クエリを実行してデータを取得
         $restaurants = $query->get();
+
+        dd($restaurants);
 
         return view('restaurants.index',compact('restaurants'));
     }
