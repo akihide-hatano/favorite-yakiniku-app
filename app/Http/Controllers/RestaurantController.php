@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\DB;
 
+use function Ramsey\Uuid\v1;
+
 class RestaurantController extends Controller
 {
 
@@ -27,5 +29,37 @@ class RestaurantController extends Controller
                 ->orWhere('description', 'like', '%' . $search . '%');
             });
         }
+
+        //---評評価による絞りこみ機能---
+        if($request->has('rating')&&is_numeric($request->rating)){
+            $selectRating = $request->rating;
+            if($selectRating >=1 && $selectRating <= 5){
+               // withAvg で計算された平均評価を使い、指定された評価以上の店舗を絞り込む
+                $query->having('reviews_avg_rating', '>=', $selectRating);
+            }
+        }
+
+        // --- 並び替え機能 ---
+        if ($request->has('sort') && $request->sort === 'reviews_count') {
+            $query->withCount('reviews')->orderByDesc('reviews_count');
+        } elseif ($request->has('sort') && $request->sort === 'rating') {
+            $query->orderByDesc('reviews_avg_rating');
+        } else {
+            $query->orderByDesc('reviews_avg_rating');
+        }
+
+        //クエリを実行してデータを取得
+        $restaurants = $query->get();
+        
+        return view('restaurants.index',compact('restaurants'));
+    }
+
+    /**
+     * 特定の焼肉店の詳細を表示
+     */
+    public function show(Restaurant $restaurant)
+    {
+        $restaurant->load('reviews.user');
+        return view('restaurants.show', compact('restaurant'));
     }
 }
