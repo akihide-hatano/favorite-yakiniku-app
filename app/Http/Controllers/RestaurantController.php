@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+
 
 use function Ramsey\Uuid\v1;
 
@@ -72,37 +75,73 @@ class RestaurantController extends Controller
         return view('restaurants.create');
     }
 
-    public function store(Request $request){
-        //バリーデーション
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'address' => 'required|string|max:255',
-            'telephone' => 'required|string|max:20',
-            'operating_hours' => 'required|string|max:255',
-            'image' => 'nullable|image|max:2048', // 画像ファイルはオプション、最大2MB
-        ]);
+public function store(Request $request)
+{
+    Log::info('Store method called.');
+    Log::info('Request has file: ' . ($request->hasFile('image') ? 'Yes' : 'No'));
+    Log::info('Uploaded file info: ' . json_encode($request->file('image')));
+    Log::info('All request data: ' . json_encode($request->all()));
 
-        //画像に関する設定
-        $imagePath = null;
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('public/restaurants'); // 例: "public/restaurants/xxxx.png"
-            $imagePath = str_replace('public/', 'storage/', $imagePath); // 例: "storage/restaurants/xxxx.png"
+    // バリデーション
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'required|string',
+        'address' => 'required|string|max:255',
+        'telephone' => 'required|string|max:20',
+        'operating_hours' => 'required|string|max:255',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+
+    $imagePath = null;
+    if ($request->hasFile('image')) {
+        $uploadedFile = $request->file('image');
+        $fileName = uniqid() . '.' . $uploadedFile->getClientOriginalExtension();
+        try {
+            // storeAs の呼び出し
+            $imagePath = $uploadedFile->storeAs('restaurants', $fileName, 'public');
+            Log::info('画像が保存されました: ' . $imagePath);
+        } catch (\Exception $e) {
+            // 保存に失敗した場合のログを追加
+            Log::error('画像の保存に失敗しました: ' . $e->getMessage());
+            Log::error($e->getTraceAsString());
+            return back()->with('error', '画像のアップロード中にエラーが発生しました。' . $e->getMessage());
+        }
+    }
+
+    $restaurant = new Restaurant();
+    $restaurant->name = $validatedData['name'];
+    $restaurant->description = $validatedData['description'];
+    $restaurant->address = $validatedData['address'];
+    $restaurant->telephone = $validatedData['telephone'];
+    $restaurant->operating_hours = $validatedData['operating_hours'];
+    $restaurant->image_url = $imagePath ? 'storage/' . $imagePath : null;
+    $restaurant->save();
+
+    return redirect()->route('restaurants.index')->with('success', '新しい焼肉店を登録しました。');
+}
+
+public function destroy( Restaurant $restaurant) {
+    // 1. 画像ファイルがデータベースに保存されているか確認し、あれば削除する
+        if ($restaurant->image_url) {
+            // image_url は 'storage/restaurants/ファイル名.png' の形式なので
+            // 'storage/' 部分を削除して、storage/app/public/restaurants/ファイル名.png にアクセスできるようにする
+            $filePath = str_replace('storage/', '', $restaurant->image_url);
+
+            // Storage::disk('public') を使ってファイルを削除
+            if (Storage::disk('public')->exists($filePath)) {
+                Storage::disk('public')->delete($filePath);
+                Log::info('画像ファイルを削除しました: ' . $filePath);
+            } else {
+                Log::warning('削除しようとした画像ファイルが見つかりません: ' . $filePath);
+            }
         }
 
-        // データベースへの保存
-        Restaurant::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'address' => $request->address,
-            'telephone' => $request->telephone,
-            'operating_hours' => $request->operating_hours,
-            'image_url' => $imagePath, // アップロードした画像のパスを設定
-            // 他の必要なフィールドも設定
-        ]);
+        // 2. データベースのレコードを削除
+        $restaurant->delete();
+        Log::info('焼肉店レコードを削除しました: ID=' . $restaurant->id);
 
-        //保存後のリダイレクト
-        return redirect()->route('restaurants.index')
-                        ->with('success','焼肉店情報が正常に登録されました！');
+
+        return redirect()->route('restaurants.index')->with('success', '焼肉店を削除しました。');
+    
     }
 }

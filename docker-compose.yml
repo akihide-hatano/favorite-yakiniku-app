@@ -19,6 +19,8 @@ services:
             IGNITION_LOCAL_SITES_PATH: '${PWD}'
         volumes:
             - '.:/var/www/html'
+            - './storage/app/public:/var/www/html/storage/app/public' # publicディスクのデータをホストと共有
+            - './tmp:/tmp'
         networks:
             - sail
         depends_on:

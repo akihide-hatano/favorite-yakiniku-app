@@ -40,11 +40,21 @@
                             <p class="text-gray-600"><strong class="font-medium">営業時間:</strong> {{ $restaurant->operating_hours }}</p>
                         </div>
                         
-                        {{-- 予約リンクなど、追加のボタンがあればここに --}}
-                        <div class="mt-6 text-right">
+                        {{-- ボタン群 --}}
+                        <div class="mt-6 flex justify-end items-center space-x-4"> {{-- justify-end と space-x-4 を追加 --}}
+                            {{-- 一覧に戻るボタン --}}
                             <a href="{{ route('restaurants.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-gray-800 uppercase tracking-widest hover:bg-gray-300 focus:bg-gray-300 active:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                                 一覧に戻る
                             </a>
+
+                            {{-- 削除ボタン --}}
+                            <form action="{{ route('restaurants.destroy', $restaurant) }}" method="POST" onsubmit="return confirm('本当にこの店舗を削除してもよろしいですか？');">
+                                @csrf
+                                @method('DELETE') {{-- DELETEメソッドを使用することを指定 --}}
+                                <button type="submit" class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                    削除する
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -58,7 +68,7 @@
                     @forelse ($restaurant->reviews as $review)
                         <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-4 shadow-sm">
                             <div class="flex items-center mb-3">
-                                <p class="font-semibold text-lg text-gray-800 mr-3">{{ $review->user->name ?? '名無しさん' }}</p> {{-- ユーザー名を表示 --}}
+                                <p class="font-semibold text-lg text-gray-800 mr-3">{{ $review->user->name ?? '名無しさん' }}</p>
                                 <p class="text-yellow-500 text-xl">
                                     @for ($i = 0; $i < $review->rating; $i++) ★ @endfor
                                 </p>
