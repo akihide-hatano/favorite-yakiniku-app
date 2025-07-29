@@ -66,55 +66,40 @@
                     </form>
                 </div>
 
-                {{-- レストランリストをカード形式で表示 --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"> {{-- グリッドレイアウトを追加 --}}
+                {{-- レストランリストをグリッド形式（画像重視）で表示 --}}
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"> {{-- 複数の列で画像を並べる --}}
                     @forelse ($restaurants as $restaurant)
-                        <div class="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden transition-shadow hover:shadow-lg"> {{-- カードスタイル --}}
-                            @if ($restaurant->image_url)
-                                <img src="{{ asset($restaurant->image_url) }}" alt="{{ $restaurant->name }}" class="w-full h-48 object-cover">
-                            @else
-                                {{-- 画像がない場合のプレースホルダー --}}
-                                <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500">画像なし</div>
-                            @endif
-                            <div class="p-4">
-                                <h4 class="text-xl font-semibold mb-2">
-                                    <a href="{{ route('restaurants.show', $restaurant) }}" class="text-blue-600 hover:underline">
-                                        {{ $restaurant->name }}
-                                    </a>
-                                </h4>
-                                <div class="flex items-center mb-2">
-                                    @if (isset($restaurant->reviews_avg_rating))
-                                        <span class="text-yellow-500 text-lg mr-1">★</span>
-                                        <span class="text-gray-700 text-base font-medium">{{ number_format($restaurant->reviews_avg_rating, 1) }}</span>
-                                    @else
-                                        <span class="text-gray-500 text-sm">評価なし</span>
-                                    @endif
-                                    @if (isset($restaurant->reviews_count))
-                                        <span class="text-gray-500 text-sm ml-2">({{ $restaurant->reviews_count }}件の口コミ)</span>
-                                    @else
-                                        <span class="text-gray-500 text-sm ml-2">(口コミなし)</span>
-                                    @endif
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden group"> {{-- グループでホバー効果を適用 --}}
+                            <a href="{{ route('restaurants.show', $restaurant) }}">
+                                @if ($restaurant->image_url)
+                                    <img src="{{ asset($restaurant->image_url) }}" alt="{{ $restaurant->name }}" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
+                                @else
+                                    <div class="w-full h-56 bg-gray-200 flex items-center justify-center text-gray-500">画像なし</div>
+                                @endif
+                                <div class="p-3">
+                                    <h4 class="text-lg font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-200">{{ $restaurant->name }}</h4>
+                                    <div class="flex items-center text-sm text-gray-600 mt-1">
+                                        @if (isset($restaurant->reviews_avg_rating))
+                                            <span class="text-yellow-500 mr-1">★</span> {{ number_format($restaurant->reviews_avg_rating, 1) }} ({{ $restaurant->reviews_count ?? 0 }})
+                                        @else
+                                            評価なし
+                                        @endif
+                                    </div>
+                                    <p class="text-gray-500 text-xs mt-1 line-clamp-1">{{ $restaurant->address }}</p>
+                                    {{-- ここに他の情報（営業時間など）を追加できます --}}
                                 </div>
-                                <p class="text-gray-600 text-sm mb-2 line-clamp-2">{{ $restaurant->description }}</p> {{-- 2行に制限 --}}
-                                <p class="text-gray-500 text-xs">住所: {{ $restaurant->address }}</p>
-                                {{-- ここに他の情報（営業時間など）を追加できます --}}
-                                <div class="mt-4 text-right">
-                                    <a href="{{ route('restaurants.show', $restaurant) }}" class="inline-flex items-center px-3 py-1.5 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-600 focus:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                        詳細を見る
-                                    </a>
-                                </div>
-                            </div>
+                            </a>
                         </div>
                     @empty
                         <p class="text-gray-600 col-span-full">お探しの条件に合う焼肉店は見つかりませんでした。</p>
                     @endforelse
                 </div>
-
+                
                 {{-- ページネーションリンク --}}
                 {{-- <div class="mt-8">
                     {{ $restaurants->links() }}
-                </div> --}}
-            </div>
+                </div>
+            </div> --}}
         </div>
     </div>
 </x-app-layout>
