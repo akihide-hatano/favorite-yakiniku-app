@@ -54,8 +54,6 @@ class RestaurantController extends Controller
         //クエリを実行してデータを取得
         $restaurants = $query->get();
 
-        dd($restaurants);
-
         return view('restaurants.index',compact('restaurants'));
     }
 
