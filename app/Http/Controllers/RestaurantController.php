@@ -15,7 +15,6 @@ class RestaurantController extends Controller
      * 焼肉店一覧を表示 (検索・絞り込み機能を追加)
      */
     public function index(Request $request){
-        dd('ここまでは来てるよ！');
 
         $query = Restaurant::query();
     
@@ -48,10 +47,6 @@ class RestaurantController extends Controller
         } else {
             $query->orderByDesc('reviews_avg_rating');
         }
-
-        // ここに dd() を追加！
-        // 構築されたSQL文と、バインドされる値を確認できます
-        dd($query->toSql(), $query->getBindings());
 
         //クエリを実行してデータを取得
         $restaurants = $query->get();
