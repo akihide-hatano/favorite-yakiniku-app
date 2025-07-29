@@ -48,9 +48,13 @@ class RestaurantController extends Controller
             $query->orderByDesc('reviews_avg_rating');
         }
 
+        // ここに dd() を追加！
+        // 構築されたSQL文と、バインドされる値を確認できます
+        dd($query->toSql(), $query->getBindings());
+
         //クエリを実行してデータを取得
         $restaurants = $query->get();
-        
+
         return view('restaurants.index',compact('restaurants'));
     }
 
