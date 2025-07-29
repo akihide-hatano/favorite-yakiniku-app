@@ -7,18 +7,26 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            {{-- 新しい2カラムのグリッドコンテナ --}}
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6"> {{-- md:grid-cols-3で3カラムにし、その比率を操作 --}}
+            <div class="flex flex-col md:flex-row gap-6">
 
-                {{-- 左側のサイドバー（検索・絞り込みフォーム） - 1/3幅 --}}
-                <div class="md:col-span-1 bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
+                {{-- 左側のスティッキーサイドバー（検索・絞り込みフォーム） --}}
+                <div class="
+                    md:sticky md:top-12
+                    md:w-1/4
+                    w-full
+                    bg-white shadow-sm sm:rounded-lg p-6 text-gray-900
+                    z-20 
+                    {{-- ここから追加・修正 --}}
+                    md:h-[calc(100vh-150px)] {{-- 画面高からtop-12の分を引いた高さ --}}
+                    md:overflow-y-auto {{-- 垂直スクロールを許可 --}}
+                    {{-- overflow-hidden は不要。代わりに overflow-y-auto --}}
+                ">
                     <h3 class="text-2xl font-bold mb-4">焼肉店検索</h3>
 
                     {{-- 検索フォーム --}}
-                    {{-- flex-growを削除し、フォーム自体が全幅になるように変更 --}}
                     <form action="{{ route('restaurants.index') }}" method="GET" class="mb-6">
                         <input type="text" name="search" placeholder="店舗名やキーワードで検索"
-                               class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mb-2" {{-- w-fullで親要素の幅いっぱいに --}}
+                               class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mb-2"
                                value="{{ request('search') }}">
                         <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                             検索
@@ -80,12 +88,14 @@
                     </div>
                 </div>
 
-                {{-- 右側の店舗一覧 - 2/3幅 --}}
-                <div class="md:col-span-3 bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
-                    <h3 class="text-2xl font-bold mb-4">店舗一覧</h3> {{-- タイトルを店舗一覧に変更 --}}
+                {{-- 右側の店舗一覧 --}}
+                <div class="
+                    w-full md:w-3/4 
+                    bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900
+                ">
+                    <h3 class="text-2xl font-bold mb-4">店舗一覧</h3>
 
                     {{-- レストランリストをグリッド形式（画像重視）で表示 --}}
-                    {{-- ここもカラム数を調整。親の2/3幅の中でさらにグリッドを組む --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"> 
                         @forelse ($restaurants as $restaurant)
                             <div class="bg-white rounded-lg shadow-md overflow-hidden group">
@@ -117,8 +127,8 @@
                     {{-- <div class="mt-8">
                         {{ $restaurants->links() }}
                     </div> --}}
-                </div> {{-- md:col-span-2 の div 閉じタグ --}}
-            </div> {{-- grid grid-cols-3 の div 閉じタグ --}}
+                </div>
+            </div> {{-- .flex の閉じタグ --}}
         </div>
     </div>
 </x-app-layout>
