@@ -22,6 +22,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('restaurants',RestaurantController::class);
-Route::resource('restaurants',ReviewController::class);
+Route::resource('reviews',ReviewController::class);
 
 require __DIR__.'/auth.php';
