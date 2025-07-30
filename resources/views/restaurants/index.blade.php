@@ -90,13 +90,13 @@
 
                 {{-- 右側の店舗一覧 --}}
                 <div class="
-                    w-full md:w-3/4 
+                    w-full md:w-3/4
                     bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900
                 ">
                     <h3 class="text-2xl font-bold mb-4">店舗一覧</h3>
 
                     {{-- レストランリストをグリッド形式（画像重視）で表示 --}}
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"> 
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         @forelse ($restaurants as $restaurant)
                             <div class="bg-white rounded-lg shadow-md overflow-hidden group">
                                 <a href="{{ route('restaurants.show', $restaurant) }}">
@@ -108,8 +108,9 @@
                                     <div class="p-3">
                                         <h4 class="text-lg font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-200">{{ $restaurant->name }}</h4>
                                         <div class="flex items-center text-sm text-gray-600 mt-1">
-                                            @if (isset($restaurant->reviews_avg_rating))
-                                                <span class="text-yellow-500 mr-1">★</span> {{ number_format($restaurant->reviews_avg_rating, 1) }} ({{ $restaurant->reviews_count ?? 0 }})
+                                            {{-- コントローラで avg_rating を取得しているので、こちらを参照 --}}
+                                            @if (isset($restaurant->avg_rating) && $restaurant->reviews_count > 0) {{-- 口コミが0件の場合は評価なしと表示したい場合 --}}
+                                                <span class="text-yellow-500 mr-1">★</span> {{ number_format($restaurant->avg_rating, 1) }} ({{ $restaurant->reviews_count }})
                                             @else
                                                 評価なし
                                             @endif
@@ -122,7 +123,7 @@
                             <p class="text-gray-600 col-span-full">お探しの条件に合う焼肉店は見つかりませんでした。</p>
                         @endforelse
                     </div>
-                    
+
                     {{-- ページネーションリンク --}}
                     {{-- <div class="mt-8">
                         {{ $restaurants->links() }}

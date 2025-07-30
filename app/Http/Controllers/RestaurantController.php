@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Restaurant;
+use App\Models\Review;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-
 
 use function Ramsey\Uuid\v1;
 
@@ -17,49 +17,61 @@ class RestaurantController extends Controller
     /**
      * 焼肉店一覧を表示 (検索・絞り込み機能を追加)
      */
-    public function index(Request $request){
-        $query = Restaurant::query();
-    
-        //平均を取得
-        $query->withAvg('reviews','rating');
+    public function index(Request $request)
+    {
+        $query = Restaurant::query()
+            ->select(
+                'restaurants.*', // レストランの全カラム
+                DB::raw('AVG(reviews.rating) as avg_rating'), // 平均評価
+                DB::raw('COUNT(reviews.id) as reviews_count') // 口コミ数
+            )
+            ->leftJoin('reviews', 'restaurants.id', '=', 'reviews.restaurant_id')
+            ->groupBy('restaurants.id', 'restaurants.name', 'restaurants.description', 'restaurants.address', 'restaurants.telephone', 'restaurants.operating_hours', 'restaurants.image_url', 'restaurants.created_at', 'restaurants.updated_at');
 
-        //---検索機能---
-        if($request->filled('search')){
+        // --- 検索機能 ---
+        if ($request->filled('search')) {
             $search = $request->input('search');
-            $query->where(function ($q) use ($search){
-                $q->where('name', 'like', '%' . $search . '%')
-                ->orWhere('description', 'like', '%' . $search . '%');
+            $query->where(function ($q) use ($search) {
+                $q->where('restaurants.name', 'like', '%' . $search . '%')
+                ->orWhere('restaurants.description', 'like', '%' . $search . '%');
             });
         }
 
-        //---評評価による絞りこみ機能---
-        if($request->has('rating')&&is_numeric($request->rating)){
+        // --- 評価による絞り込み機能 ---
+        if ($request->has('rating') && is_numeric($request->rating)) {
             $selectRating = $request->rating;
-            if($selectRating >=1 && $selectRating <= 5){
-               // withAvg で計算された平均評価を使い、指定された評価以上の店舗を絞り込む
-                $query->having('reviews_avg_rating', '>=', $selectRating);
+            if ($selectRating >= 1 && $selectRating <= 5) {
+                // DB::rawで計算したエイリアス 'avg_rating' をhavingで参照
+                $query->having('avg_rating', '>=', $selectRating);
+                // 口コミが全くない店舗を除外したい場合は以下を追加
+                // ->having('reviews_count', '>', 0);
             }
         }
 
         // --- 場所での絞り込み機能 ---
         if ($request->filled('location')) {
             $location = $request->input('location');
-            $query->where('address', 'like', '%' . $location . '%');
+            $query->where('restaurants.address', 'like', '%' . $location . '%');
         }
 
         // --- 並び替え機能 ---
-        if ($request->has('sort') && $request->sort === 'reviews_count') {
-            $query->withCount('reviews')->orderByDesc('reviews_count');
-        } elseif ($request->has('sort') && $request->sort === 'rating') {
-            $query->orderByDesc('reviews_avg_rating');
+        if ($request->has('sort')) {
+            if ($request->sort === 'reviews_count') {
+                $query->orderByDesc('reviews_count');
+            } elseif ($request->sort === 'rating') {
+                $query->orderByDesc('avg_rating');
+            }
+            // 他の並べ替え順があればここに追加
         } else {
-            $query->orderByDesc('reviews_avg_rating');
+            // デフォルトの並べ替え順
+            $query->orderByDesc('avg_rating');
+            $query->orderByDesc('reviews_count'); // 評価が同じ場合は口コミ数が多い順
         }
 
-        //クエリを実行してデータを取得
-        $restaurants = $query->get();
+        // 該当する店舗がない場合の処理は、Blade側で $restaurants->isEmpty() で判断します
+        $restaurants = $query->paginate(15); // ページネーションを適用
 
-        return view('restaurants.index',compact('restaurants'));
+        return view('restaurants.index', compact('restaurants'));
     }
 
     /**
