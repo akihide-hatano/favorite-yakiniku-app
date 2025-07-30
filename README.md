@@ -7,55 +7,115 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+# レビュー管理アプリ
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+このプロジェクトは、Laravelフレームワークを用いて開発されたWebアプリケーションです。
+特定の店舗に対するユーザーからのレビューを投稿・管理する機能を提供します。
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 主な機能
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+* **店舗詳細表示**: 各レストランの詳細情報を表示します。
+* **レビュー投稿**: ログインユーザーは、店舗に対してレビュー（評価とコメント）を投稿できます。
+    * 一人のユーザーは、一つの店舗につき一度だけレビューを投稿可能です。
+* **レビュー一覧表示**:
+    * 店舗ごとのレビューを一覧表示します。
+    * レビューの平均評価を計算し、表示します。
+* **レビュー編集**: 自分が投稿したレビューのみ、評価とコメントを編集できます。
+* **レビュー削除**: 自分が投稿したレビューのみ、削除できます。
+* **（オプション）全レビュー表示**: アプリケーション内のすべての店舗のレビューを一覧表示します。（※実装済みの場合に含める）
 
-## Learning Laravel
+## 技術スタック
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+このプロジェクトは以下の技術を使用して構築されています。
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+* **バックエンド**:
+    * PHP (バージョン: 例. 8.2以上)
+    * Laravel Framework (バージョン: 例. 10.x / 11.x)
+    * データベース: PostgreSQL
+    * 認証: Laravel Breeze
+* **フロントエンド**:
+    * HTML / Blade (テンプレートエンジン)
+    * Tailwind CSS (CSSフレームワーク)
+    * JavaScript (一部機能で利用)
+* **開発環境**:
+    * Docker / Laravel Sail (推奨)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 開発環境のセットアップ
 
-## Laravel Sponsors
+プロジェクトをローカル環境でセットアップし、実行するための手順です。
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1.  **リポジトリのクローン**
+    ```bash
+    git clone [あなたのGitHubリポジトリのURL]
+    cd [プロジェクト名]
+    ```
 
-### Premium Partners
+2.  **依存パッケージのインストール**
+    * Composer (PHP):
+        ```bash
+        composer install
+        ```
+    * NPM (JavaScript/CSS):
+        ```bash
+        npm install
+        ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+3.  **.env ファイルの設定**
+    `.env.example` をコピーして `.env` ファイルを作成し、データベース接続情報やその他の環境変数を設定します。
+    ```bash
+    cp .env.example .env
+    ```
+    `.env` ファイルを開き、`DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` などを、あなたのPostgreSQL環境に合わせて設定してください。
 
-## Contributing
+4.  **アプリケーションキーの生成**
+    ```bash
+    php artisan key:generate
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5.  **データベースマイグレーションの実行**
+    データベースにテーブルを作成します。
+    ```bash
+    php artisan migrate
+    ```
 
-## Code of Conduct
+6.  **（任意）シーダーの実行**
+    初期データを投入する場合。
+    ```bash
+    php artisan db:seed # 必要であれば
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+7.  **フロントエンドアセットのコンパイル**
+    Tailwind CSSなどのアセットをコンパイルします。
+    ```bash
+    npm run dev  # 開発用（変更監視モード）
+    # または
+    # npm run build # 本番環境用
+    ```
 
-## Security Vulnerabilities
+8.  **アプリケーションの起動**
+    Laravel Sailを使用している場合（推奨）：
+    ```bash
+    ./vendor/bin/sail up -d # または sail up -d （Pathが通っていれば）
+    ./vendor/bin/sail artisan serve # ローカルサーバーを起動
+    ```
+    通常のPHP開発サーバーを使用する場合：
+    ```bash
+    php artisan serve
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    アプリケーションは通常 `http://localhost:8000` でアクセス可能になります。
 
-## License
+## 著作権・ライセンス
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+このプロジェクトはMITライセンスの下で公開されています。詳細については`LICENSE`ファイルをご確認ください。
+
+---
+**補足:**
+* `[あなたのGitHubリポジトリのURL]` は、ご自身のGitHubリポジトリのURLに置き換えてください。
+* `[プロジェクト名]` も、ご自身のプロジェクトのディレクトリ名に置き換えてください。
+* PHPやLaravelのバージョンは、ご自身の環境に合わせて修正してください。
+* もしLaravel Sailを使用していない場合は、「Docker / Laravel Sail (推奨)」の部分を削除し、`npm run dev` の後に `php artisan serve` で起動する旨だけを残してください。
+* 「（オプション）全レビュー表示」の項目は、実際に実装が完了している場合のみ残してください。
+
+この内容で、提出用として十分なREADMEファイルになると思います。
+素晴らしいREADMEができましたね！
