@@ -69,19 +69,19 @@
                     @if ($highlyRatedRestaurants->isNotEmpty())
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"> {{-- カードを並べるグリッドレイアウト --}}
                             @foreach ($highlyRatedRestaurants as $restaurant)
-                                <div class="border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition duration-150 ease-in-out">
+                                {{-- ここからaタグで全体を囲む --}}
+                                <a href="{{ route('restaurants.show', $restaurant) }}" class="block border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition duration-150 ease-in-out transform hover:scale-105 cursor-pointer">
                                     {{-- 店舗画像を表示 --}}
-                                    @if($restaurant->image_url) {{-- ここを image_url に変更 --}}
-                                        <img src="{{ asset($restaurant->image_url) }}" alt="{{ $restaurant->name }}" class="w-full h-32 object-cover rounded-md mb-3"> {{-- srcも asset($path) に変更 --}}
+                                    @if($restaurant->image_url)
+                                        <img src="{{ asset($restaurant->image_url) }}" alt="{{ $restaurant->name }}" class="w-full h-32 object-cover rounded-md mb-3">
                                     @else
                                         {{-- 画像がない場合のデフォルト画像 --}}
                                         <img src="{{ asset('images/default_restaurant.png') }}" alt="Default Restaurant Image" class="w-full h-32 object-cover rounded-md mb-3">
                                     @endif
 
                                     <h4 class="font-bold text-md mb-1">
-                                        <a href="{{ route('restaurants.show', $restaurant) }}" class="text-indigo-600 hover:text-indigo-900">
-                                            {{ $restaurant->name }}
-                                        </a>
+                                        {{-- 店舗名もaタグではなく直接表示 --}}
+                                        <span class="text-indigo-600 group-hover:text-indigo-800">{{ $restaurant->name }}</span>
                                     </h4>
                                     @if(isset($restaurant->avg_rating))
                                         <p class="text-sm text-gray-600">平均評価: {{ number_format($restaurant->avg_rating, 1) }} / 5.0</p>
@@ -89,7 +89,8 @@
                                         <p class="text-sm text-gray-600">{{ __('評価未算出') }}</p>
                                     @endif
                                     <p class="text-gray-700 text-sm mb-2">{{ Str::limit($restaurant->description, 100) }}</p>
-                                </div>
+                                </a>
+                                {{-- aタグの閉じタグまで --}}
                             @endforeach
                         </div>
                         <div class="mt-4 text-center">

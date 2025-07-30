@@ -18,7 +18,7 @@ class DashboardController extends Controller
             ->leftJoin('reviews', 'restaurants.id', '=', 'reviews.restaurant_id')
             ->groupBy('restaurants.id')
             ->havingRaw('AVG(reviews.rating) >= 3')
-            ->orHavingRaw('COUNT(reviews.id) = 0')
+            ->orderByDesc('avg_rating')
             ->get();
         // --- ここまでhighlyRatedRestaurantsの取得ロジック ---
 
