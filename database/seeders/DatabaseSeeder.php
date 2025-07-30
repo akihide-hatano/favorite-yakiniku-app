@@ -24,7 +24,9 @@ class DatabaseSeeder extends Seeder
 
         //作成した他のSeederを呼び出す
         $this->call([
-            RestaurantSeeder::class, // RestaurantSeederを実行
+            RestaurantSeeder::class,
+            ReviewSeeder::class,
         ]);
+
     }
 }
