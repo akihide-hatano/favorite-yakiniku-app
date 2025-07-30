@@ -41,21 +41,24 @@
                         </div>
                         
                         {{-- ボタン群 --}}
-                        <div class="mt-6 flex justify-end items-center space-x-4"> {{-- justify-end と space-x-4 を追加 --}}
+                    <div class="mt-8 flex justify-start items-center space-x-4">
                             {{-- 一覧に戻るボタン --}}
-                            <a href="{{ route('restaurants.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-gray-800 uppercase tracking-widest hover:bg-gray-300 focus:bg-gray-300 active:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                            <a href="{{ route('restaurants.index') }}" class="px-4 py-2 bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-gray-800 uppercase tracking-widest hover:bg-gray-300 focus:bg-gray-300 active:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                                 一覧に戻る
                             </a>
-
+                            {{-- 編集ボタン --}}
+                            <a href="{{ route('restaurants.edit', $restaurant) }}" class="bg-green-500 hover:bg-green-700 text-white text-xs font-semibold px-4 py-2 rounded focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+                                編集する
+                            </a>
                             {{-- 削除ボタン --}}
                             <form action="{{ route('restaurants.destroy', $restaurant) }}" method="POST" onsubmit="return confirm('本当にこの店舗を削除してもよろしいですか？');">
                                 @csrf
                                 @method('DELETE') {{-- DELETEメソッドを使用することを指定 --}}
-                                <button type="submit" class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                <button type="submit" class="px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150">
                                     削除する
                                 </button>
                             </form>
-                        </div>
+                    </div>
                     </div>
                 </div>
 
