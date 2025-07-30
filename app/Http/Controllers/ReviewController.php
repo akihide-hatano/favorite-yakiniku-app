@@ -7,6 +7,8 @@ use App\Models\Restaurant;
 use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
 
+use function Ramsey\Uuid\v1;
+
 class ReviewController extends Controller
 {
     /**
@@ -96,16 +98,49 @@ class ReviewController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Restaurant $restaurant, Review $review)
     {
-        //
+        //権限の確認
+        if( Auth::id() !== $review->user_id){
+            return redirect()->route('restaurants.reviews.index', $restaurant)
+                            ->with('error','他のユーザーのレビューは編集できません');
+        }
+
+
+        //バリデーション
+        $validatedData = $request->validate([
+            'rating' => 'required|integer|min:1|max:5', // 必須、整数、1から5の範囲
+            'comment' => 'nullable|string|max:500',    // 省略可能、文字列、最大500文字
+        ]);
+
+
+        //レビューの更新
+        $review->rating = $validatedData['rating'];
+        $review->comment = $validatedData['comment'];
+        $review->save();
+
+        // 更新後のリダイレクト
+        return redirect()->route('restaurants.reviews.index', $restaurant)
+                        ->with('success', 'レビューを更新しました！');
+
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request,Restaurant $restaurant,Review $review)
     {
-        //
+        //権限の確認
+        if( Auth::id() !== $review->user_id){
+            return redirect()->route('restaurants.reviews.index', $restaurant)
+                            ->with('error','他のユーザーのレビューは編集できません');
+        }
+
+        // dd('レストランobj:',$restaurant,'レビューobj:',$review);
+        $review->delete();
+
+        return redirect()->route('restaurants.reviews.index', $restaurant)
+                        ->with('success','レビューの削除をしました');
     }
 }
