@@ -71,8 +71,8 @@
                             @foreach ($highlyRatedRestaurants as $restaurant)
                                 <div class="border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition duration-150 ease-in-out">
                                     {{-- 店舗画像を表示 --}}
-                                    @if($restaurant->image_path)
-                                        <img src="{{ asset('storage/' . $restaurant->image_path) }}" alt="{{ $restaurant->name }}" class="w-full h-32 object-cover rounded-md mb-3">
+                                    @if($restaurant->image_url) {{-- ここを image_url に変更 --}}
+                                        <img src="{{ asset($restaurant->image_url) }}" alt="{{ $restaurant->name }}" class="w-full h-32 object-cover rounded-md mb-3"> {{-- srcも asset($path) に変更 --}}
                                     @else
                                         {{-- 画像がない場合のデフォルト画像 --}}
                                         <img src="{{ asset('images/default_restaurant.png') }}" alt="Default Restaurant Image" class="w-full h-32 object-cover rounded-md mb-3">
