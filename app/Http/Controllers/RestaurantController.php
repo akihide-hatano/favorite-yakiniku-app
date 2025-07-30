@@ -19,21 +19,38 @@ class RestaurantController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Restaurant::query()
+// まず、平均評価と口コミ数を計算するサブクエリを作成
+        $subQuery = DB::table('restaurants')
             ->select(
-                'restaurants.*', // レストランの全カラム
-                DB::raw('AVG(reviews.rating) as avg_rating'), // 平均評価
-                DB::raw('COUNT(reviews.id) as reviews_count') // 口コミ数
+                'restaurants.id',
+                DB::raw('AVG(reviews.rating) as avg_rating'),
+                DB::raw('COUNT(reviews.id) as reviews_count')
             )
             ->leftJoin('reviews', 'restaurants.id', '=', 'reviews.restaurant_id')
-            ->groupBy('restaurants.id', 'restaurants.name', 'restaurants.description', 'restaurants.address', 'restaurants.telephone', 'restaurants.operating_hours', 'restaurants.image_url', 'restaurants.created_at', 'restaurants.updated_at');
+            ->groupBy(
+                'restaurants.id' // GROUP BY は ID のみでOK。他のカラムは後で結合
+            );
+
+        // メインのクエリ
+        $query = Restaurant::query()
+            // サブクエリをleftJoinで結合し、エイリアス 'restaurant_stats' として使う
+            ->leftJoinSub($subQuery, 'restaurant_stats', function ($join) {
+                $join->on('restaurants.id', '=', 'restaurant_stats.id');
+            });
+
+        // SELECT 句で必要なカラムと、サブクエリで取得した avg_rating, reviews_count を指定
+        $query->select(
+            'restaurants.*',
+            DB::raw('COALESCE(restaurant_stats.avg_rating, 0) as avg_rating'), // avg_rating がnullの場合に0を表示
+            DB::raw('COALESCE(restaurant_stats.reviews_count, 0) as reviews_count') // reviews_count がnullの場合に0を表示
+        );
 
         // --- 検索機能 ---
         if ($request->filled('search')) {
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
                 $q->where('restaurants.name', 'like', '%' . $search . '%')
-                ->orWhere('restaurants.description', 'like', '%' . $search . '%');
+                  ->orWhere('restaurants.description', 'like', '%' . $search . '%');
             });
         }
 
@@ -41,10 +58,11 @@ class RestaurantController extends Controller
         if ($request->has('rating') && is_numeric($request->rating)) {
             $selectRating = $request->rating;
             if ($selectRating >= 1 && $selectRating <= 5) {
-                // DB::rawで計算したエイリアス 'avg_rating' をhavingで参照
-                $query->having('avg_rating', '>=', $selectRating);
-                // 口コミが全くない店舗を除外したい場合は以下を追加
-                // ->having('reviews_count', '>', 0);
+                // サブクエリから結合したエイリアス 'avg_rating' を直接 where で参照
+                // COALESCE を使って null の場合も考慮
+                $query->where(DB::raw('COALESCE(restaurant_stats.avg_rating, 0)'), '>=', $selectRating);
+                // もし評価が全くない店舗を絞り込みたい場合 (例: 4以上を選んだ時に評価0の店舗を除外)
+                // $query->where('restaurant_stats.reviews_count', '>', 0);
             }
         }
 
@@ -61,15 +79,15 @@ class RestaurantController extends Controller
             } elseif ($request->sort === 'rating') {
                 $query->orderByDesc('avg_rating');
             }
-            // 他の並べ替え順があればここに追加
         } else {
-            // デフォルトの並べ替え順
             $query->orderByDesc('avg_rating');
-            $query->orderByDesc('reviews_count'); // 評価が同じ場合は口コミ数が多い順
+            $query->orderByDesc('reviews_count');
         }
 
-        // 該当する店舗がない場合の処理は、Blade側で $restaurants->isEmpty() で判断します
-        $restaurants = $query->paginate(15); // ページネーションを適用
+        // DDはここで一旦コメントアウト/削除
+        // dd($query->toSql(), $query->getBindings());
+
+        $restaurants = $query->paginate(15); // ここは paginate のままでOKです
 
         return view('restaurants.index', compact('restaurants'));
     }

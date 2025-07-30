@@ -22,7 +22,7 @@
                         </div>
                     @endif
 
-                    <div class="max-w-md mx-auto bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
+                    <div class="max-w-2xl mx-auto bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
                         <form action="{{ route('restaurants.update', $restaurant) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')

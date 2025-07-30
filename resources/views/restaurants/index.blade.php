@@ -110,7 +110,7 @@
                                         <div class="flex items-center text-sm text-gray-600 mt-1">
                                             {{-- コントローラで avg_rating を取得しているので、こちらを参照 --}}
                                             @if (isset($restaurant->avg_rating) && $restaurant->reviews_count > 0) {{-- 口コミが0件の場合は評価なしと表示したい場合 --}}
-                                                <span class="text-yellow-500 mr-1">★</span> {{ number_format($restaurant->avg_rating, 1) }} ({{ $restaurant->reviews_count }})
+                                                <span class="text-yellow-500 mr-1">★</span> {{ number_format($restaurant->avg_rating, 1) }} {{ $restaurant->reviews_count }}件
                                             @else
                                                 評価なし
                                             @endif
@@ -125,9 +125,9 @@
                     </div>
 
                     {{-- ページネーションリンク --}}
-                    {{-- <div class="mt-8">
+                    <div class="mt-8">
                         {{ $restaurants->links() }}
-                    </div> --}}
+                    </div>
                 </div>
             </div> {{-- .flex の閉じタグ --}}
         </div>
