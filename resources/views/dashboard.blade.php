@@ -1,17 +1,103 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('ダッシュボード') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
+                    <p class="mb-4 text-lg font-medium">{{ __("ようこそ！今日はどの焼肉店を探索しますか？") }}</p>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="{{ route('restaurants.index') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:border-blue-900 focus:ring ring-blue-300 disabled:opacity-25 transition ease-in-out duration-150">
+                            {{ __('焼肉店一覧を見る') }}
+                        </a>
+                        <a href="{{ route('restaurants.create') }}" class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 active:bg-green-800 focus:outline-none focus:border-green-900 focus:ring ring-green-300 disabled:opacity-25 transition ease-in-out duration-150">
+                            {{ __('新しい焼肉店を登録する') }}
+                        </a>
+                    </div>
                 </div>
             </div>
+
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <h3 class="font-semibold text-lg mb-4">{{ __('あなたの最近のレビュー') }}</h3>
+                    @if ($userReviews->isNotEmpty())
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"> {{-- カードを並べるグリッドレイアウト --}}
+                            @foreach ($userReviews as $review)
+                                <div class="border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition duration-150 ease-in-out">
+                                    <h4 class="font-bold text-md mb-1">
+                                        @if($review->restaurant)
+                                            <a href="{{ route('restaurants.show', $review->restaurant) }}" class="text-indigo-600 hover:text-indigo-800">
+                                                {{ $review->restaurant->name }}
+                                            </a>
+                                        @else
+                                            {{ __('不明な店舗') }}
+                                        @endif
+                                    </h4>
+                                    {{-- 星の表示 --}}
+                                    <div class="flex items-center mb-2">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            @if ($i <= $review->rating)
+                                                <svg class="w-4 h-4 text-yellow-500 fill-current" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.426 8.204 1.192-5.95 5.808 1.403 8.165L12 18.006l-7.325 3.856 1.403-8.165-5.95-5.808 8.204-1.192z"/></svg>
+                                            @else
+                                                <svg class="w-4 h-4 text-gray-300 fill-current" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.426 8.204 1.192-5.95 5.808 1.403 8.165L12 18.006l-7.325 3.856 1.403-8.165-5.95-5.808 8.204-1.192z"/></svg>
+                                            @endif
+                                        @endfor
+                                        <span class="ml-2 text-sm text-gray-600">{{ $review->rating }}/5</span>
+                                    </div>
+                                    <p class="text-gray-700 text-sm mb-2">{{ Str::limit($review->comment, 100) }}</p>
+                                    <div class="text-right text-xs text-gray-500">
+                                        {{ $review->created_at->format('Y/m/d') }} 投稿
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        {{-- <div class="mt-6 text-center">
+                            <a href="{{ route('reviews.my_reviews') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 active:bg-indigo-800 focus:outline-none focus:border-indigo-900 focus:ring ring-indigo-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                {{ __('すべてのレビューを見る') }} &rarr;
+                            </a>
+                        </div> --}}
+                    @else
+                        <p class="text-gray-600">{{ __('まだレビューを投稿していません。ぜひ最初のレビューを投稿してみましょう！') }}</p>
+                    @endif
+                </div>
+            </div>
+
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <h3 class="font-semibold text-lg mb-4">{{ __('評価3以上のおすすめ焼肉店') }}</h3>
+                    @if ($highlyRatedRestaurants->isNotEmpty())
+                        <ul class="space-y-4">
+                            @foreach ($highlyRatedRestaurants as $restaurant)
+                                <li class="border-b pb-2 last:border-b-0 last:pb-0">
+                                    <h4 class="font-medium text-md">
+                                        <a href="{{ route('restaurants.show', $restaurant) }}" class="text-indigo-600 hover:text-indigo-900">
+                                            {{ $restaurant->name }}
+                                        </a>
+                                    </h4>
+                                    {{-- Controllerでavg_ratingを取得している場合 --}}
+                                    @if(isset($restaurant->avg_rating))
+                                        <p class="text-sm text-gray-600">平均評価: {{ number_format($restaurant->avg_rating, 1) }} / 5.0</p>
+                                    @else
+                                        <p class="text-sm text-gray-600">{{ __('評価未算出') }}</p>
+                                    @endif
+                                    <p class="text-sm text-gray-600">{{ Str::limit($restaurant->description, 100) }}</p>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <div class="mt-4 text-right">
+                            <a href="{{ route('restaurants.index', ['filter_rating' => 3]) }}" class="text-sm text-indigo-600 hover:text-indigo-900">{{ __('もっと見る') }} &rarr;</a>
+                        </div>
+                    @else
+                        <p class="text-gray-600">{{ __('現在、評価3以上のおすすめ焼肉店はありません。') }}</p>
+                    @endif
+                </div>
+            </div>
+
         </div>
     </div>
 </x-app-layout>
