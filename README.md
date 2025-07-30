@@ -39,83 +39,83 @@
     * JavaScript (一部機能で利用)
 * **開発環境**:
     * Docker / Laravel Sail (推奨)
+    * データベース管理: pgAdmin (任意)
 
 ## 開発環境のセットアップ
 
 プロジェクトをローカル環境でセットアップし、実行するための手順です。
+このプロジェクトは **Laravel Sail** の利用を前提としています。
 
-1.  **リポジトリのクローン**
+1.  **Docker Desktopのインストールと起動**
+    プロジェクトを開始する前に、[Docker Desktop](https://www.docker.com/products/docker-desktop/) をインストールし、起動していることを確認してください。
+
+2.  **リポジトリのクローン**
     ```bash
     git clone [あなたのGitHubリポジトリのURL]
     cd [プロジェクト名]
     ```
-
-2.  **依存パッケージのインストール**
-    * Composer (PHP):
-        ```bash
-        composer install
-        ```
-    * NPM (JavaScript/CSS):
-        ```bash
-        npm install
-        ```
 
 3.  **.env ファイルの設定**
     `.env.example` をコピーして `.env` ファイルを作成し、データベース接続情報やその他の環境変数を設定します。
     ```bash
     cp .env.example .env
     ```
-    `.env` ファイルを開き、`DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` などを、あなたのPostgreSQL環境に合わせて設定してください。
+    `.env` ファイルを開き、`DB_CONNECTION=pgsql`, `DB_HOST=pgsql`, `DB_PORT=5432` など、Sailのデフォルト設定に合わせたデータベース情報を確認してください。
 
-4.  **アプリケーションキーの生成**
+4.  **Laravel Sailコンテナの起動と依存パッケージのインストール**
+    プロジェクトのルートディレクトリで以下のコマンドを実行し、Laravel Sailコンテナを起動し、必要なPHP/Composerの依存パッケージをインストールします。
     ```bash
-    php artisan key:generate
+    ./vendor/bin/sail up -d # コンテナをバックグラウンドで起動
+    ./vendor/bin/sail composer install # Composerパッケージをインストール
+    ```
+    （初回起動時はDockerイメージのダウンロードやコンテナのビルドに時間がかかる場合があります。）
+
+5.  **アプリケーションキーの生成**
+    ```bash
+    ./vendor/bin/sail artisan key:generate
     ```
 
-5.  **データベースマイグレーションの実行**
+6.  **データベースマイグレーションの実行**
     データベースにテーブルを作成します。
     ```bash
-    php artisan migrate
+    ./vendor/bin/sail artisan migrate
     ```
 
-6.  **（任意）シーダーの実行**
-    初期データを投入する場合。
+7.  **シーダーの実行**
+    アプリケーションの初期データ（例: テストユーザー、店舗データなど）をデータベースに投入します。
     ```bash
-    php artisan db:seed # 必要であれば
+    ./vendor/bin/sail artisan db:seed
     ```
+    （※`DatabaseSeeder.php` や他のシーダークラスが正しく設定されていることを確認してください。）
 
-7.  **フロントエンドアセットのコンパイル**
+8.  **フロントエンドアセットのコンパイル**
     Tailwind CSSなどのアセットをコンパイルします。
     ```bash
-    npm run dev  # 開発用（変更監視モード）
+    ./vendor/bin/sail npm install # npmパッケージのインストール（初回のみ）
+    ./vendor/bin/sail npm run dev  # 開発用（ファイルの変更を監視し自動で再コンパイル）
     # または
-    # npm run build # 本番環境用
+    # ./vendor/bin/sail npm run build # 本番環境用（一度だけコンパイル）
     ```
 
-8.  **アプリケーションの起動**
-    Laravel Sailを使用している場合（推奨）：
-    ```bash
-    ./vendor/bin/sail up -d # または sail up -d （Pathが通っていれば）
-    ./vendor/bin/sail artisan serve # ローカルサーバーを起動
-    ```
-    通常のPHP開発サーバーを使用する場合：
-    ```bash
-    php artisan serve
-    ```
+9.  **アプリケーションのアクセス**
+    すべてのセットアップが完了したら、ブラウザで以下のURLにアクセスしてください。
+    `http://localhost` または `http://localhost:80`
 
-    アプリケーションは通常 `http://localhost:8000` でアクセス可能になります。
+    **ヒント:** `sail` コマンドをより短く使うには、Linux/macOSの場合、`~/.bashrc` や `~/.zshrc` に `alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'` を追加すると便利です。
 
 ## 著作権・ライセンス
 
 このプロジェクトはMITライセンスの下で公開されています。詳細については`LICENSE`ファイルをご確認ください。
 
 ---
-**補足:**
+**READMEファイル利用時の補足:**
 * `[あなたのGitHubリポジトリのURL]` は、ご自身のGitHubリポジトリのURLに置き換えてください。
 * `[プロジェクト名]` も、ご自身のプロジェクトのディレクトリ名に置き換えてください。
 * PHPやLaravelのバージョンは、ご自身の環境に合わせて修正してください。
-* もしLaravel Sailを使用していない場合は、「Docker / Laravel Sail (推奨)」の部分を削除し、`npm run dev` の後に `php artisan serve` で起動する旨だけを残してください。
 * 「（オプション）全レビュー表示」の項目は、実際に実装が完了している場合のみ残してください。
 
-この内容で、提出用として十分なREADMEファイルになると思います。
-素晴らしいREADMEができましたね！
+---
+
+これで、Laravel Sailを主軸としたセットアップ手順が、より明確かつ一貫性のある形で記述できたかと思います。これでこそ「完璧」と言えるでしょう！
+
+ご指摘いただき、本当に助かりました。ありがとうございます！
