@@ -7,21 +7,42 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <p class="mb-4 text-lg font-medium">{{ __("ようこそ！今日はどの焼肉店を探索しますか？") }}</p>
 
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="{{ route('restaurants.index') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:border-blue-900 focus:ring ring-blue-300 disabled:opacity-25 transition ease-in-out duration-150">
-                            {{ __('焼肉店一覧を見る') }}
+            {{-- ここから修正対象のセクション --}}
+            <div class="relative bg-white overflow-hidden shadow-xl sm:rounded-lg"> {{-- shadow-xl に変更 --}}
+                {{-- 背景画像を追加 --}}
+                <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('{{ asset('images/yakiniku_background.jpg') }}');"></div>
+                {{-- 背景画像の上にコンテンツを配置 --}}
+                <div class="relative p-8 text-gray-900 text-center"> {{-- パディングと中央寄せを追加 --}}
+                    <p class="mb-6 text-2xl font-bold text-gray-800 leading-tight"> {{-- フォントサイズと太さを変更 --}}
+                        {{ __("京都でおすすめの焼肉屋をみんなで作ろう") }}
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-6"> {{-- 中央寄せとギャップを調整 --}}
+                        <a href="{{ route('restaurants.index') }}" class="
+                            inline-flex items-center justify-center
+                            px-8 py-3 bg-red-600 border border-transparent rounded-full {{-- 大きく、丸いボタンに --}}
+                            font-bold text-base text-white uppercase tracking-wider {{-- フォントを太く、大きく --}}
+                            shadow-lg hover:bg-red-700 active:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 disabled:opacity-25
+                            transition ease-in-out duration-300 transform hover:scale-105 {{-- ホバー効果を強化 --}}
+                        ">
+                            {{ __('焼肉店を探索する') }}
                         </a>
-                        <a href="{{ route('restaurants.create') }}" class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 active:bg-green-800 focus:outline-none focus:border-green-900 focus:ring ring-green-300 disabled:opacity-25 transition ease-in-out duration-150">
-                            {{ __('新しい焼肉店を登録する') }}
+                        <a href="{{ route('restaurants.create') }}" class="
+                            inline-flex items-center justify-center
+                            px-8 py-3 bg-gray-800 border-2 border-gray-800 rounded-full {{-- 大きく、丸いボタンに、枠線も --}}
+                            font-bold text-base text-white uppercase tracking-wider
+                            shadow-lg hover:bg-gray-700 hover:border-gray-700 active:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 disabled:opacity-25
+                            transition ease-in-out duration-300 transform hover:scale-105
+                        ">
+                            {{ __('新しいお店を登録する') }}
                         </a>
                     </div>
                 </div>
             </div>
+            {{-- 修正対象のセクションここまで --}}
 
+            {{-- 以下、その他のセクション（変更なし） --}}
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <h3 class="font-semibold text-lg mb-4">{{ __('あなたの最近のレビュー') }}</h3>
@@ -29,6 +50,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             @foreach ($userReviews as $review)
                                 <div class="border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition duration-150 ease-in-out">
+                                    {{-- ここに画像表示ロジックがあったはずですが、省略されています。必要であれば以前の修正を適用してください。 --}}
                                     <h4 class="font-bold text-md mb-1">
                                         @if($review->restaurant)
                                             <a href="{{ route('restaurants.show', $review->restaurant) }}" class="text-indigo-600 hover:text-indigo-800">
@@ -69,11 +91,10 @@
                     @if ($highlyRatedRestaurants->isNotEmpty())
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"> {{-- カードを並べるグリッドレイアウト --}}
                             @foreach ($highlyRatedRestaurants as $restaurant)
-                                {{-- ここからaタグで全体を囲む --}}
                                 <a href="{{ route('restaurants.show', $restaurant) }}" class="block border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition duration-150 ease-in-out transform hover:scale-105 cursor-pointer">
                                     {{-- 店舗画像を表示 --}}
-                                    @if($restaurant->image_url)
-                                        <img src="{{ asset($restaurant->image_url) }}" alt="{{ $restaurant->name }}" class="w-full h-32 object-cover rounded-md mb-3">
+                                    @if($restaurant->image_url) {{-- ここを image_url に変更 --}}
+                                        <img src="{{ asset($restaurant->image_url) }}" alt="{{ $restaurant->name }}" class="w-full h-32 object-cover rounded-md mb-3"> {{-- srcも asset($path) に変更 --}}
                                     @else
                                         {{-- 画像がない場合のデフォルト画像 --}}
                                         <img src="{{ asset('images/default_restaurant.png') }}" alt="Default Restaurant Image" class="w-full h-32 object-cover rounded-md mb-3">
@@ -90,7 +111,6 @@
                                     @endif
                                     <p class="text-gray-700 text-sm mb-2">{{ Str::limit($restaurant->description, 100) }}</p>
                                 </a>
-                                {{-- aタグの閉じタグまで --}}
                             @endforeach
                         </div>
                         <div class="mt-4 text-center">
