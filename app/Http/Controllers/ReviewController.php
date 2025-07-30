@@ -36,19 +36,27 @@ class ReviewController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request,Restaurant $restaurant)
+    public function store(Request $request, Restaurant $restaurant)
     {
+        // ★ 処理の開始を確認（dumpに変更）
+        // dd('storeメソッドが実行されました'); // dump() に変更
+
         //バリデーションのルールを定義
         $validatedData = $request->validate([
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'nullable|string|max:500',
         ]);
 
+        // ★ バリデーションの成功を確認（dumpに変更）
+        // dd('バリデーション成功:', $validatedData); // dump() に変更
+
         //ユーザーが既にこの店舗にレビューを投稿しているか確認
         $existReview = $restaurant->reviews()
                                     ->where('user_id',Auth::id())
                                     ->first();
         if ($existReview) {
+            // ★ 既存レビューがある場合の確認（dumpに変更）
+            // dd('既存レビューがあります。リダイレクトされます。'); // dump() に変更
             return back()->with('error', 'この店舗はすでにレビュー済みです。');
         }
 
@@ -75,9 +83,14 @@ class ReviewController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Restaurant $restaurant, Review $review)
     {
-        //
+        // ログインユーザーがこのレビューの投稿者であることを確認
+        if (Auth::id() !== $review->user_id) {
+            // 投稿者でなければ、不正アクセスとしてリダイレクトするか、エラーメッセージを表示
+            return redirect()->route('restaurants.reviews.index', $restaurant)->with('error', '他のユーザーのレビューは編集できません。');
+        }
+        return view('restaurants.reviews.edit',compact('review','restaurant'));
     }
 
     /**
