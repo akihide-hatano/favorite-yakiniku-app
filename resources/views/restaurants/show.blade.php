@@ -74,7 +74,7 @@
                     </div>
 
                     @forelse ($restaurant->reviews as $review)
-                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-4 shadow-sm">
+                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-3 shadow-sm">
                             <div class="flex items-center mb-3">
                                 <p class="font-semibold text-lg text-gray-800 mr-3">{{ $review->user->name ?? '名無しさん' }}</p>
                                 <p class="text-yellow-500 text-xl">
@@ -83,11 +83,30 @@
                                 <p class="text-gray-500 text-sm ml-auto">{{ $review->created_at->format('Y/m/d H:i') }}</p>
                             </div>
                             <p class="text-gray-700 leading-relaxed">{{ $review->comment }}</p>
+                            @auth {{-- ログインしている場合のみ表示 --}}
+                            @if (Auth::id() === $review->user_id) {{-- ログインユーザーがこの口コミの投稿者である場合のみ表示 --}}
+                            <div class="mt-2 flex justify-end space-x-2">
+                                {{-- 編集ボタン --}}
+                                <a href="{{ route('restaurants.reviews.edit', [$restaurant, $review]) }}" class="inline-flex items-center px-3 py-1 bg-yellow-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-yellow-600 focus:bg-yellow-600 active:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                    編集
+                                </a>
+                                {{-- 削除ボタン --}}
+                                <form action="{{ route('restaurants.reviews.destroy', [$restaurant, $review]) }}" method="POST" onsubmit="return confirm('本当にこの口コミを削除してもよろしいですか？');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="inline-flex items-center px-3 py-1 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                        削除
+                                    </button>
+                                </form>
+                            </div>
+                            @endif
+                            @endauth
+                            {{-- ★★★ ここまで編集・削除ボタンを追加 ★★★ --}}
                         </div>
-                    @empty
-                        <p class="text-gray-600">この焼肉店にはまだ口コミがありません。</p>
-                    @endforelse
-                </div>
+                            @empty
+                            <p class="text-gray-600">この焼肉店にはまだ口コミがありません。</p>
+                            @endforelse
+                    </div>
 
                 {{-- 口コミ投稿フォーム（後で実装） --}}
                 {{-- <div class="mt-8">
