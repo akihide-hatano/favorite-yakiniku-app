@@ -14,20 +14,17 @@
 
 ### ダッシュボード
 
-![Dashboard Screenshot](docs/images/dashboard.png)
 ログイン後のユーザー向けの個人ページです。
-（ここにダッシュボードの機能説明を追記しても良いでしょう）
+![Dashboard Screenshot](docs/images/dashboard.png)
 
 ### 焼肉店一覧
 
-![Restaurants Index Screenshot](docs/images/restaurants_index.png)
 京都の焼肉店を検索・絞り込み、一覧で表示します。
-（ここに一覧ページの機能説明を追記しても良いでしょう）
+![Restaurants Index Screenshot](docs/images/restaurants_index.png)
 
 ### 焼肉店詳細
-
+店舗の詳細や口コミを確認できます。
 ![Restaurant Show Screenshot](docs/images/restaurants_show.png)
-各焼肉店の詳細情報と、口コミを確認・投稿できます。
 
 ## 主な機能
 
