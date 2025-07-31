@@ -41,7 +41,7 @@
                         </div>
                         
                         {{-- ボタン群 --}}
-                    <div class="mt-8 flex justify-start items-center space-x-4">
+                        <div class="mt-8 flex justify-start items-center space-x-4">
                             {{-- 一覧に戻るボタン --}}
                             <a href="{{ route('restaurants.index') }}" class="px-4 py-2 bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-gray-800 uppercase tracking-widest hover:bg-gray-300 focus:bg-gray-300 active:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                                 一覧に戻る
@@ -58,7 +58,7 @@
                                     削除する
                                 </button>
                             </form>
-                    </div>
+                        </div>
                     </div>
                 </div>
 
@@ -87,7 +87,7 @@
                             @if (Auth::id() === $review->user_id) {{-- ログインユーザーがこの口コミの投稿者である場合のみ表示 --}}
                             <div class="mt-2 flex justify-end space-x-2">
                                 {{-- 編集ボタン --}}
-                                <a href="{{ route('restaurants.reviews.edit', [$restaurant, $review]) }}" class="inline-flex items-center px-3 py-1 bg-yellow-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-yellow-600 focus:bg-yellow-600 active:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                <a href="{{ route('restaurants.reviews.edit', [$restaurant, $review]) }}" class="inline-flex items-center px-3 py-1 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 focus:bg-green-600 active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150">
                                     編集
                                 </a>
                                 {{-- 削除ボタン --}}
