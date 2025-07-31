@@ -1,12 +1,10 @@
 <x-app-layout>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 bg-orange-300 py-12">
 
-            <div class="relative bg-white overflow-hidden shadow-xl sm:rounded-lg"> {{-- shadow-xl に変更 --}}
-                {{-- 背景画像を追加 --}}
+            <div class="relative bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('{{ asset('images/yakiniku_background.jpg') }}');"></div>
-                {{-- 背景画像の上にコンテンツを配置 --}}
-                <div class="relative p-8 text-gray-900 text-center"> {{-- パディングと中央寄せを追加 --}}
-                    <p class="mb-6 text-2xl font-bold text-gray-800 leading-tight"> {{-- フォントサイズと太さを変更 --}}
+                <div class="relative p-8 text-gray-900 text-center">
+                    <p class="mb-6 text-2xl font-bold text-gray-800 leading-tight underline decoration-orange-500 decoration-8">
                         {{ __("京都でおすすめの焼肉屋をみんなで作ろう") }}
                     </p>
 
@@ -18,6 +16,10 @@
                             shadow-lg hover:bg-red-700 active:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 disabled:opacity-25
                             transition ease-in-out duration-300 transform hover:scale-105 {{-- ホバー効果を強化 --}}
                         ">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+</svg>
+
                             {{ __('焼肉店を探索する') }}
                         </a>
                         <a href="{{ route('restaurants.create') }}" class="
@@ -32,9 +34,7 @@
                     </div>
                 </div>
             </div>
-            {{-- 修正対象のセクションここまで --}}
 
-            {{-- 以下、その他のセクション（変更なし） --}}
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <h3 class="font-semibold text-lg mb-4">{{ __('あなたの最近のレビュー') }}</h3>
