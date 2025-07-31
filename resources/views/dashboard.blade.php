@@ -1,14 +1,6 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('ダッシュボード') }}
-        </h2>
-    </x-slot>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 bg-orange-300 py-12">
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-
-            {{-- ここから修正対象のセクション --}}
             <div class="relative bg-white overflow-hidden shadow-xl sm:rounded-lg"> {{-- shadow-xl に変更 --}}
                 {{-- 背景画像を追加 --}}
                 <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('{{ asset('images/yakiniku_background.jpg') }}');"></div>
@@ -125,5 +117,4 @@
             </div>
 
         </div>
-    </div>
 </x-app-layout>
