@@ -36,7 +36,7 @@
 
 本アプリケーションの主要なエンティティとその関係を図で示します。
 
-![ER Diagram Placeholder](https://via.placeholder.com/800x400?text=Your+ER+Diagram+Here)
+![ER Diagram Placeholder](public/images/er-diagram.png)
 ## 開発環境のセットアップ
 
 このプロジェクトは **Laravel Sail** の利用を前提としています。
