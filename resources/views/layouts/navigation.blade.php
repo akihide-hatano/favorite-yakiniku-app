@@ -15,6 +15,9 @@
                     <x-nav-link :href="route('restaurants.index')" :active="request()->routeIs('restaurants.index')">
                         {{ __('焼肉店一覧') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('restaurants.create')" :active="request()->routeIs('restaurants.create')">
+                        {{ __('焼肉店作成') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -66,6 +69,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('restaurants.index')" :active="request()->routeIs('restaurants.index')">
                 {{ __('焼肉店一覧') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('restaurants.create')" :active="request()->routeIs('restaurants.create')">
+                {{ __('焼肉店登録') }}
             </x-responsive-nav-link>
         </div>
 

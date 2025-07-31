@@ -30,7 +30,7 @@
                                 <span class="text-gray-500 text-lg">評価はまだありません</span>
                             @endif
                         </div>
-                        
+
                         <p class="text-gray-700 text-lg mb-4 leading-relaxed">{{ $restaurant->description }}</p>
 
                         <div class="mb-4">
@@ -66,7 +66,12 @@
 
                 {{-- 口コミセクション --}}
                 <div class="mt-8">
-                    <h2 class="text-3xl font-bold mb-6">口コミ ({{ $restaurant->reviews->count() }}件)</h2>
+                    <div class="flex justify-start items-center gap-10 mb-6">
+                        <h2 class="text-3xl font-bold">口コミ ({{ $restaurant->reviews->count() }}件)</h2>
+                        <a href="{{ route('restaurants.reviews.create', $restaurant )}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+                            レビューを投稿する
+                        </a>
+                    </div>
 
                     @forelse ($restaurant->reviews as $review)
                         <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-4 shadow-sm">
