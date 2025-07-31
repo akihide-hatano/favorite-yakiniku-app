@@ -17,9 +17,8 @@
                     bg-white shadow-sm sm:rounded-lg p-6 text-gray-900
                     z-20 
                     {{-- ここから追加・修正 --}}
-                    md:h-[calc(100vh-150px)] {{-- 画面高からtop-12の分を引いた高さ --}}
+                    md:h-[calc(100vh-150px)]
                     md:overflow-y-auto {{-- 垂直スクロールを許可 --}}
-                    {{-- overflow-hidden は不要。代わりに overflow-y-auto --}}
                 ">
                     <h3 class="text-2xl font-bold mb-4">焼肉店検索</h3>
 
@@ -86,6 +85,12 @@
                             </select>
                         </form>
                     </div>
+                    {{-- 焼肉店の登録 --}}
+                    <div class="mt-6 pt-4 border-t border-gray-200"> {{-- 上部に線と余白を追加して区切る --}}
+                        <a href="{{ route('restaurants.create') }}" class="w-full inline-flex justify-center items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                            新しい焼肉店を登録
+                        </a>
+                    </div>
                 </div>
 
                 {{-- 右側の店舗一覧 --}}
@@ -129,7 +134,7 @@
                         {{ $restaurants->links() }}
                     </div>
                 </div>
-            </div> {{-- .flex の閉じタグ --}}
+            </div>
         </div>
     </div>
 </x-app-layout>
