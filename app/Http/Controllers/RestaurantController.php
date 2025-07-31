@@ -97,7 +97,7 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $restaurant)
     {
-        $restaurant->load('reviews.user');
+        $restaurant->loadAvg('reviews', 'rating')->loadCount('reviews');
         return view('restaurants.show', compact('restaurant'));
     }
 
