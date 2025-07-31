@@ -36,7 +36,7 @@
 
 本アプリケーションの主要なエンティティとその関係を図で示します。
 
-!\[ER Diagram](images/er-diagram.png)
+![ER Diagram](docs/images/er-diagram.png)
 ## 開発環境のセットアップ
 
 このプロジェクトは **Laravel Sail** の利用を前提としています。
