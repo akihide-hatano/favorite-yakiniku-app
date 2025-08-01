@@ -2,6 +2,18 @@
 
 このアプリは、**コミュニティベースの京都の焼肉店レビューWebアプリケーション**です。ユーザー全員が焼肉店の情報やレビューを投稿・共有し、協力して情報を育てることを目指します。ユーザー認証、画像投稿、口コミ投稿など、基本的なWebアプリ機能を備えています。
 
+### ダッシュボード
+ログイン後のユーザー向けの個人ページです。
+![Dashboard Screenshot](docs/images/dashboard.png)
+
+### 焼肉店一覧
+京都の焼肉店を検索・絞り込み、一覧で表示します。
+![Restaurants Index Screenshot](docs/images/restaurants_index.png)
+
+### 焼肉店詳細
+店舗の詳細や口コミを確認できます。
+![Restaurant Show Screenshot](docs/images/restaurants_show.png)
+
 ## デザイン・UI/UX
 
 このアプリケーションは、**「暖かみのあるモダン」**をコンセプトにデザインされています。京都の地域性と焼肉というテーマを意識し、視覚的な楽しさと使いやすさを両立させることを目指しました。
