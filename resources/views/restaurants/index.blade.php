@@ -1,34 +1,27 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('焼肉店一覧') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
+    <div class="bg-orange-300 py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row gap-6">
-
-                {{-- 左側のスティッキーサイドバー（検索・絞り込みフォーム） --}}
+                {{-- 店舗の絞り込み --}}
                 <div class="
                     md:sticky md:top-12
                     md:w-1/4
                     w-full
                     bg-white shadow-sm sm:rounded-lg p-6 text-gray-900
                     z-20 
-                    {{-- ここから追加・修正 --}}
                     md:h-[calc(100vh-150px)]
-                    md:overflow-y-auto {{-- 垂直スクロールを許可 --}}
+                    md:overflow-y-auto
                 ">
                     <h3 class="text-2xl font-bold mb-4">焼肉店検索</h3>
 
                     {{-- 検索フォーム --}}
                     <form action="{{ route('restaurants.index') }}" method="GET" class="mb-6">
                         <input type="text" name="search" placeholder="店舗名やキーワードで検索"
-                               class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mb-2"
-                               value="{{ request('search') }}">
+                            class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mb-2"
+                            value="{{ request('search') }}">
                         <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                            検索
+                            <x-icons.search/>
+                            <span class="ml-2">検索</span>
                         </button>
                     </form>
 
@@ -37,8 +30,8 @@
                         <span class="font-bold block mb-2">並び替え:</span>
                         <div class="flex flex-col space-y-2">
                             <a href="{{ route('restaurants.index', array_merge(request()->query(), ['sort' => 'rating', 'page' => 1])) }}"
-                               class="text-blue-600 hover:underline @if(request('sort') == 'rating' || (!request()->has('sort') && !request()->has('search') && !request()->has('rating') && !request()->has('location'))) font-bold @endif">
-                               評価順
+                                class="text-blue-600 hover:underline @if(request('sort') == 'rating' || (!request()->has('sort') && !request()->has('search') && !request()->has('rating') && !request()->has('location'))) font-bold @endif">
+                                評価順
                             </a>
                             <a href="{{ route('restaurants.index', array_merge(request()->query(), ['sort' => 'reviews_count', 'page' => 1])) }}"
                                class="text-blue-600 hover:underline @if(request('sort') == 'reviews_count') font-bold @endif">
