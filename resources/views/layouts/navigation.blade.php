@@ -13,10 +13,10 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link :href="route('restaurants.index')" :active="request()->routeIs('restaurants.index')">
-                        {{ __('焼肉店一覧') }}
+                        {{ __('焼肉店を見る') }}
                     </x-nav-link>
                     <x-nav-link :href="route('restaurants.create')" :active="request()->routeIs('restaurants.create')">
-                        {{ __('焼肉店登録') }}
+                        {{ __('焼肉店を登録') }}
                     </x-nav-link>
                 </div>
             </div>
