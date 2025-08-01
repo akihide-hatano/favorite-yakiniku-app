@@ -29,11 +29,23 @@
 
                         <p class="text-gray-700 text-lg mb-4 leading-relaxed">{{ $restaurant->description }}</p>
 
-                        <div class="mb-4">
-                            <h3 class="text-xl font-semibold mb-2">基本情報</h3>
-                            <p class="text-gray-600 mb-1"><strong class="font-medium">住所:</strong> {{ $restaurant->address }}</p>
-                            <p class="text-gray-600 mb-1"><strong class="font-medium">電話番号:</strong> {{ $restaurant->telephone }}</p>
-                            <p class="text-gray-600"><strong class="font-medium">営業時間:</strong> {{ $restaurant->operating_hours }}</p>
+                        <div class="mb-4 bg-gray-100 border border-gray-200 rounded-md p-4">
+                            <h3 class="text-lg font-semibold mb-2 text-orange-500 flex items-center">
+                                <x-icons.information-circle class="w-5 h-5 mr-2" />
+                                基本情報
+                            </h3>
+                            <p class="text-gray-600 mb-1 flex items-center">
+                                <x-icons.map-pin class="w-5 h-5 mr-2 text-gray-500" />
+                                <strong class="font-medium">住所:</strong> {{ $restaurant->address }}
+                            </p>
+                            <p class="text-gray-600 mb-1 flex items-center">
+                                <x-icons.phone class="w-5 h-5 mr-2 text-gray-500" />
+                                <strong class="font-medium">電話番号:</strong> {{ $restaurant->telephone }}
+                            </p>
+                            <p class="text-gray-600 flex items-center">
+                                <x-icons.clock class="w-5 h-5 mr-2 text-gray-500" />
+                                <strong class="font-medium">営業時間:</strong> {{ $restaurant->operating_hours }}
+                            </p>
                         </div>
                         {{-- ボタン群 --}}
                         <div class="mt-8 flex justify-start items-center space-x-4">
