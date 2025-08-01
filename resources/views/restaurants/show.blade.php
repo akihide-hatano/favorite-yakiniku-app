@@ -35,16 +35,16 @@
                                 基本情報
                             </h3>
                             <p class="text-gray-600 mb-1 flex items-center">
-                                <x-icons.map-pin class="w-5 h-5 mr-2 text-gray-500" />
-                                <strong class="font-medium">住所:</strong> {{ $restaurant->address }}
+                                <x-icons.map-pin/>
+                                <strong class="font-medium ml-2">住所:</strong> {{ $restaurant->address }}
                             </p>
                             <p class="text-gray-600 mb-1 flex items-center">
-                                <x-icons.phone class="w-5 h-5 mr-2 text-gray-500" />
-                                <strong class="font-medium">電話番号:</strong> {{ $restaurant->telephone }}
+                                <x-icons.phone/>
+                                <strong class="font-medium ml-2">電話番号:</strong> {{ $restaurant->telephone }}
                             </p>
                             <p class="text-gray-600 flex items-center">
-                                <x-icons.clock class="w-5 h-5 mr-2 text-gray-500" />
-                                <strong class="font-medium">営業時間:</strong> {{ $restaurant->operating_hours }}
+                                <x-icons.clock />
+                                <strong class="font-medium ml-2">営業時間:</strong> {{ $restaurant->operating_hours }}
                             </p>
                         </div>
                         {{-- ボタン群 --}}
@@ -72,13 +72,13 @@
                 <hr class="my-8 border-gray-200">
 
                 {{-- 口コミセクション --}}
-                <div class="mt-8">
-                    <div class="flex justify-start items-center gap-10 mb-6">
-                        <h2 class="text-3xl font-bold">口コミ ({{ $restaurant->reviews->count() }}件)</h2>
-                        <a href="{{ route('restaurants.reviews.create', $restaurant )}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
-                            レビューを投稿する
-                        </a>
-                    </div>
+                <div class="flex justify-start items-center gap-10 mb-6">
+                    <h2 class="text-3xl font-bold">口コミ ({{ $restaurant->reviews->count() }}件)</h2>
+                    <a href="{{ route('restaurants.reviews.create', $restaurant )}}" class="inline-flex items-center bg-gray-700 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+                        <x-icons.pencil/>
+                        <span class="ml-2">レビューを投稿する</span>
+                    </a>
+                </div>
 
                     @forelse ($restaurant->reviews as $review)
                         <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-3 shadow-sm">
