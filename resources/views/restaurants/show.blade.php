@@ -1,5 +1,5 @@
 <x-app-layout>
-
+    <div class="bg-orange-300">
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -16,7 +16,7 @@
 
                     {{-- 店舗情報 --}}
                     <div class="md:w-1/2">
-                        <h1 class="text-4xl font-bold mb-4">{{ $restaurant->name }}</h1>
+                        <h1 class="text-3xl font-bold mb-4 underline decoration-orange-500 decoration-4">{{ $restaurant->name }}</h1>
                         <div class="flex items-center mb-4 text-xl">
                             @if (isset($restaurant->reviews_avg_rating))
                                 <span class="text-yellow-500 mr-2">★</span>
@@ -35,7 +35,6 @@
                             <p class="text-gray-600 mb-1"><strong class="font-medium">電話番号:</strong> {{ $restaurant->telephone }}</p>
                             <p class="text-gray-600"><strong class="font-medium">営業時間:</strong> {{ $restaurant->operating_hours }}</p>
                         </div>
-                        
                         {{-- ボタン群 --}}
                         <div class="mt-8 flex justify-start items-center space-x-4">
                             {{-- 一覧に戻るボタン --}}
@@ -110,5 +109,6 @@
                     </div> --}}
             </div>
         </div>
+    </div>
     </div>
 </x-app-layout>
