@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" {{ $attributes->merge(['class' => 'w-4 h-4 text-gray-300']) }}>
+    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 4.576 4.823.69a.562.562 0 0 1 .292.989l-3.908 3.795 1.168 5.121a.562.562 0 0 1-.806.58l-4.587-2.568-4.587 2.568a.562.562 0 0 1-.806-.58l1.168-5.121-3.908-3.795a.562.562 0 0 1 .292-.989l4.823-.69 2.125-4.576c.224-.482.79-.482 1.014 0z" />
+</svg>

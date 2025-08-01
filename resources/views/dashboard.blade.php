@@ -54,16 +54,20 @@
                                         @endif
                                     </h4>
                                     {{-- 星の表示 --}}
-                                    <div class="flex items-center mb-2">
-                                        @for ($i = 1; $i <= 5; $i++)
-                                            @if ($i <= $review->rating)
-                                                <svg class="w-4 h-4 text-yellow-500 fill-current" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.426 8.204 1.192-5.95 5.808 1.403 8.165L12 18.006l-7.325 3.856 1.403-8.165-5.95-5.808 8.204-1.192z"/></svg>
-                                            @else
-                                                <svg class="w-4 h-4 text-gray-300 fill-current" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.426 8.204 1.192-5.95 5.808 1.403 8.165L12 18.006l-7.325 3.856 1.403-8.165-5.95-5.808 8.204-1.192z"/></svg>
-                                            @endif
-                                        @endfor
-                                        <span class="ml-2 text-sm text-gray-600">{{ $review->rating }}/5</span>
-                                    </div>
+<div class="flex items-center mb-2">
+    @for ($i = 1; $i <= 5; $i++)
+        @if ($i <= $review->rating)
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-yellow-500 fill-current">
+              <path fill-rule="evenodd" d="M10.79 2.17a.75.75 0 011.42 0l2.757 5.534 6.087.883a.75.75 0 01.416 1.279l-4.397 4.267 1.639 5.936a.75.75 0 01-1.087.79l-5.417-2.865L7.59 21.75a.75.75 0 01-1.087-.79l1.64-5.936-4.397-4.267a.75.75 0 01.416-1.28l6.086-.883 2.757-5.534z" clip-rule="evenodd" />
+            </svg>
+        @else
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-gray-300 fill-current">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 4.576 4.823.69a.562.562 0 0 1 .292.989l-3.908 3.795 1.168 5.121a.562.562 0 0 1-.806.58l-4.587-2.568-4.587 2.568a.562.562 0 0 1-.806-.58l1.168-5.121-3.908-3.795a.562.562 0 0 1 .292-.989l4.823-.69 2.125-4.576c.224-.482.79-.482 1.014 0z" />
+            </svg>
+        @endif
+    @endfor
+    <span class="ml-2 text-sm text-gray-600">{{ $review->rating }}/5</span>
+</div>
                                     <p class="text-gray-700 text-sm mb-2">{{ Str::limit($review->comment, 100) }}</p>
                                     <div class="text-right text-xs text-gray-500">
                                         {{ $review->created_at->format('Y/m/d') }} 投稿

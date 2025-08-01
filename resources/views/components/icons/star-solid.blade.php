@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" {{ $attributes->merge(['class' => 'w-4 h-4 text-yellow-500']) }}>
+    <path fill-rule="evenodd" d="M10.79 2.17a.75.75 0 011.42 0l2.757 5.534 6.087.883a.75.75 0 01.416 1.279l-4.397 4.267 1.639 5.936a.75.75 0 01-1.087.79l-5.417-2.865L7.59 21.75a.75.75 0 01-1.087-.79l1.64-5.936-4.397-4.267a.75.75 0 01.416-1.28l6.086-.883 2.757-5.534z" clip-rule="evenodd" />
+</svg>
