@@ -57,7 +57,7 @@ Tailwind CSSのデフォルトカラーをベースに、以下の色を使用�
 
 ## 技術スタック
 * **バックエンド**: PHP (8.3以上), Laravel Framework (12.x), PostgreSQL, Laravel Breeze
-* **フロントエンド**: HTML / Blade, Tailwind CSS, JavaScript
+* **フロントエンド**: HTML / Blade, Tailwind CSS
 * **開発環境**: Docker / Laravel Sail (推奨), pgAdmin (任意)
 
 ## データベース設計（ER図）
