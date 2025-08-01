@@ -17,6 +17,11 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <style>
+            body {
+                cursor: url('{{ asset("images/yakiniku-cursor.png") }}'), auto;
+            }
+        </style>
     </head>
     <body class="font-sans antialiased">
             @include('layouts.navigation')
