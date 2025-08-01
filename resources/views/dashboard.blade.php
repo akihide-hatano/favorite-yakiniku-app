@@ -16,11 +16,10 @@
                             shadow-lg hover:bg-red-700 active:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 disabled:opacity-25
                             transition ease-in-out duration-300 transform hover:scale-105 {{-- ホバー効果を強化 --}}
                         ">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-</svg>
-
-                            {{ __('焼肉店を探索する') }}
+                            <x-icons.search/>
+                            <span class="ml-2">
+                                {{ __('焼肉店を探索する') }}
+                            </span>
                         </a>
                         <a href="{{ route('restaurants.create') }}" class="
                             inline-flex items-center justify-center
@@ -29,7 +28,10 @@
                             shadow-lg hover:bg-gray-700 hover:border-gray-700 active:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 disabled:opacity-25
                             transition ease-in-out duration-300 transform hover:scale-105
                         ">
-                            {{ __('新しいお店を登録する') }}
+                            <x-icons.pencil/>
+                            <span class="ml-2">
+                                {{ __('新しいお店を登録する') }}
+                            </span>
                         </a>
                     </div>
                 </div>
@@ -42,7 +44,6 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             @foreach ($userReviews as $review)
                                 <div class="border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition duration-150 ease-in-out">
-                                    {{-- ここに画像表示ロジックがあったはずですが、省略されています。必要であれば以前の修正を適用してください。 --}}
                                     <h4 class="font-bold text-md mb-1">
                                         @if($review->restaurant)
                                             <a href="{{ route('restaurants.show', $review->restaurant) }}" class="text-indigo-600 hover:text-indigo-800">
