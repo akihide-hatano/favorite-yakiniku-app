@@ -8,7 +8,7 @@
                     md:w-1/4
                     w-full
                     bg-white shadow-sm sm:rounded-lg p-6 text-gray-900
-                    z-20 
+                    z-20
                     md:h-[calc(100vh-150px)]
                     md:overflow-y-auto
                 ">
@@ -92,9 +92,8 @@
                     w-full md:w-3/4
                     bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900
                 ">
-                    <h3 class="text-2xl font-bold mb-4">店舗一覧</h3>
+                    <h2 class="text-2xl font-bold text-center mb-4 underline decoration-orange-500 decoration-4">店舗一覧</h2>
 
-                    {{-- レストランリストをグリッド形式（画像重視）で表示 --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         @forelse ($restaurants as $restaurant)
                             <div class="bg-white rounded-lg shadow-md overflow-hidden group">
