@@ -26,7 +26,7 @@
                     </div>
 
                     {{-- 平均評価の表示 --}}
-                    @if ($averageRating !== null && $averageRating > 0) {{-- 平均評価が計算でき、0より大きい場合のみ表示 --}}
+                    @if ($averageRating !== null && $averageRating > 0)
                         <p class="mb-4 text-xl font-semibold">
                             平均評価: {{ number_format($averageRating, 1) }} / 5
                             @for ($i = 0; $i < round($averageRating); $i++) ★ @endfor
@@ -45,19 +45,25 @@
                                 @for ($i = 0; $i < (5 - $review->rating); $i++) ☆ @endfor
                             </p>
                             <p class="text-gray-800 mt-1">{{ $review->comment }}</p>
-                            <p class="text-gray-500 text-sm mt-1">
-                                投稿日: {{ $review->created_at->format('Y/m/d H:i') }}
+                            <div class="flex items-center space-x-2 mt-2">
+                                <p class="text-gray-500 text-sm">
+                                    投稿日: {{ $review->created_at->format('Y/m/d H:i') }}
+                                </p>
                                 @auth
                                     @if(Auth::id() == $review->user_id)
-                                        <a href="{{ route('restaurants.reviews.edit', [$restaurant, $review]) }}" class="text-blue-500 hover:text-blue-700 text-xs ml-4">編集</a>
-                                        <form action="{{ route('restaurants.reviews.destroy', [$restaurant, $review]) }}" method="POST" onsubmit="return confirm('本当にこのレビューを削除してもよろしいですか？');" class="inline-block ml-2">
+                                        <a href="{{ route('restaurants.reviews.edit', [$restaurant, $review]) }}" class="bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold py-1 px-2 rounded transition-colors duration-200">
+                                            編集
+                                        </a>
+                                        <form action="{{ route('restaurants.reviews.destroy', [$restaurant, $review]) }}" method="POST" onsubmit="return confirm('本当にこのレビューを削除してもよろしいですか？');" class="inline-block">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-red-500 hover:text-red-700 text-xs">削除</button>
+                                            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white text-xs font-bold py-1 px-2 rounded transition-colors duration-200">
+                                                削除
+                                            </button>
                                         </form>
                                     @endif
                                 @endauth
-                            </p>
+                            </div>
                         </div>
                     @empty
                         <p class="text-gray-600">まだレビューがありません。</p>
