@@ -4,6 +4,24 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
+            {{-- flucshメッセージ --}}
+            @if (session('status'))
+                <div class="mb-4 font-medium text-sm text-green-600 bg-green-100 p-4 rounded-md">
+                    {{ session('status') }}
+                </div>
+            @endif
+
+            @if (session('success'))
+                <div class="mb-4 font-medium text-sm text-green-600 bg-green-100 p-4 rounded-md">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="mb-4 font-medium text-sm text-red-600 bg-red-100 p-4 rounded-md">
+                    {{ session('error') }}
+                </div>
+            @endif
                 <div class="md:flex md:space-x-8">
                     {{-- 店舗画像 --}}
                     <div class="md:w-1/2 mb-6 md:mb-0">
