@@ -53,12 +53,8 @@
 
 ## 📷 画面イメージ
 | ダッシュボード | 店舗一覧 | 店舗詳細 |
-|---|---|---|
-| ![Dashboard](docs/images/dashboard.png) | ![Index](docs/images/restaurants_index.png) | ![Show](docs/images/restaurants_show.png) |
-
 | <img src="docs/images/dashboard.png" height="1500"> | <img src="docs/images/restaurants_index.png" height="1500"> | <img src="docs/images/restaurants_show.png" height="1500"> |
 |---|---|---|
-| ダッシュボード | 店舗一覧 | 店舗詳細 |
 
 ---
 
