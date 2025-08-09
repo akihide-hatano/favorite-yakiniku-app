@@ -52,15 +52,9 @@
 ---
 
 ## 📷 画面イメージ
-
-### ダッシュボード
-![Dashboard Screenshot](docs/images/dashboard.png)
-
-### 焼肉店一覧
-![Restaurants Index Screenshot](docs/images/restaurants_index.png)
-
-### 焼肉店詳細
-![Restaurant Show Screenshot](docs/images/restaurants_show.png)
+| ダッシュボード | 店舗一覧 | 店舗詳細 |
+|---|---|---|
+| ![Dashboard](docs/images/dashboard.png) | ![Index](docs/images/restaurants_index.png) | ![Show](docs/images/restaurants_show.png) |
 
 ---
 
