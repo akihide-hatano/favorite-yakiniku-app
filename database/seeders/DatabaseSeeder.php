@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,20 +12,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // ▼ ログイン確認用など、固定ユーザーを複数投入（何度実行しても重複しない）
+        $users = [
+            ['name' => 'Test User', 'email' => 'test@example.com'],
+            ['name' => '山田',     'email' => 'yamada@example.com'],
+            ['name' => '佐藤',       'email' => 'sato@example.com'],
+            ['name' => '鈴木',     'email' => 'suzuki@example.com'],
+        ];
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        foreach ($users as $u) {
+            User::firstOrCreate(
+                ['email' => $u['email']],                                 // 検索キー
+                ['name' => $u['name'], 'password' => bcrypt('password')]  // 作成値
+            );
+        }
 
-         User::factory(8)->create();
-
-        //作成した他のSeederを呼び出す
+        // ▼ 先に店舗 → 次にレビュー（レビューでユーザー／店舗を参照するため）
         $this->call([
             RestaurantSeeder::class,
             ReviewSeeder::class,
         ]);
-
     }
 }
